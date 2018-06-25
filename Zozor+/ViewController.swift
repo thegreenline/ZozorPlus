@@ -108,6 +108,7 @@ class ViewController: UIViewController {
         }
 
         textView.text = textView.text + "=\(total)"
+        
 
         clear()
     }
