@@ -9,53 +9,73 @@
 import UIKit
 
 class ViewController: UIViewController {
-
+    
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
-
+    
+    let calcul = CalculModel() // instance of class CalculModel
     
     // MARK: - Action
     
+    
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        for (i, numberButton) in numberButtons.enumerated() {
-            if sender == numberButton {
-                addNewNumber(i)
+        // spot number in clavier 
+        for (i, numberBtn) in numberButtons.enumerated() {
+            if sender == numberBtn {
+                calcul.addNewNumber(i) // add Int number
+                updateDisplay()
             }
         }
     }
     
     @IBAction func plus() {
-        if canAddOperator {
-            operators.append("+")
-            stringNumbers.append("")
-            updateDisplay()
-        }
+        guard isCorrect() else { return }
+        calcul.addOperator(signe: "+")
+        calcul.addStringNumbers(number: "")
+        updateDisplay()
     }
     
     @IBAction func minus() {
-        if canAddOperator {
-            operators.append("-")
-            stringNumbers.append("")
-            updateDisplay()
-        }
+        guard isCorrect() else { return }
+        calcul.addOperator(signe: "-")
+        calcul.addStringNumbers(number: "")
+        updateDisplay()
+    }
+    
+    @IBAction func Multiply() {
+        guard isCorrect() else { return }
+        calcul.addOperator(signe: "*")
+        calcul.addStringNumbers(number: "")
+        updateDisplay()
+    }
+    
+    @IBAction func divide() {
+        guard isCorrect() else { return }
+        calcul.addOperator(signe: "/")
+        calcul.addStringNumbers(number: "")
+        updateDisplay()
     }
     
     @IBAction func equal() {
+        // calcul
         calculateTotal()
     }
     
-    // MARK: - Properties
+    @IBAction func AC() {
+        // reset btn
+        calcul.clear()
+        textView.text = ""
+        updateDisplay()
+    }
     
-    var stringNumbers: [String] = [String()]
-    var operators: [String] = ["+"]
-    var index = 0
     
-    var isExpressionCorrect: Bool {
-        if let stringNumber = stringNumbers.last {
+    private func isCorrect() -> Bool {
+        // check if all is ok
+        if let stringNumber = calcul.getStringNumbers.last {
             if stringNumber.isEmpty {
-                if stringNumbers.count == 1 {
+                if calcul.getCount == 1 {
                     let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
                     alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                     self.present(alertVC, animated: true, completion: nil)
@@ -69,70 +89,28 @@ class ViewController: UIViewController {
         }
         return true
     }
-
-    var canAddOperator: Bool {
-        if let stringNumber = stringNumbers.last {
-            if stringNumber.isEmpty {
-                let alertVC = UIAlertController(title: "Zéro!", message: "Expression incorrecte !", preferredStyle: .alert)
-                alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                self.present(alertVC, animated: true, completion: nil)
-                return false
-            }
-        }
-        return true
-    }
-
-
     
-    // MARK: - Methods
-
-    func addNewNumber(_ newNumber: Int) {
-        if let stringNumber = stringNumbers.last {
-            var stringNumberMutable = stringNumber
-            stringNumberMutable += "\(newNumber)"
-            stringNumbers[stringNumbers.count-1] = stringNumberMutable
-        }
-        updateDisplay()
+    private func calculateTotal() {
+        // calcul total
+        guard isCorrect() else { return }
+        let total = calcul.getTotal
+        textView.text = textView.text + " = \(total)"
+        calcul.clear()
     }
-
-    func calculateTotal() {
-        if !isExpressionCorrect {
-            return
-        }
-
-        var total = 0
-        for (i, stringNumber) in stringNumbers.enumerated() {
-            if let number = Int(stringNumber) {
-                if operators[i] == "+" {
-                    total += number
-                } else if operators[i] == "-" {
-                    total -= number
-                }
-            }
-        }
-
-        textView.text = textView.text + "=\(total)"
-        
-
-        clear()
-    }
-
-    func updateDisplay() {
+    
+    private func updateDisplay() {
+        // update textView
         var text = ""
-        for (i, stringNumber) in stringNumbers.enumerated() {
+        for (i, stringNumber) in calcul.getEnum {
             // Add operator
             if i > 0 {
-                text += operators[i]
+                text += calcul.getOperator[i]
             }
             // Add number
             text += stringNumber
         }
         textView.text = text
     }
-
-    func clear() {
-        stringNumbers = [String()]
-        operators = ["+"]
-        index = 0
-    }
+    
 }
+
