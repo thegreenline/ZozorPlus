@@ -11,9 +11,10 @@ class CalculManager {
     // MARK: Proprety
     
     private var _stringNumbers: [String] = [String()] // array of numbers
-    private var _operators: [String] = ["+"] // array of signes
-
-    private var _total = 0
+    private var _operators: String? // array of signes
+    private var _currentNumber: Double?
+    
+    private var _total: Double = 0
     
     // MARK: Getter
     
@@ -29,31 +30,43 @@ class CalculManager {
         return _stringNumbers.count
     }
     
-    var getOperator: [String] {
-        return _operators
+    var getOperator: String? {
+        guard let returnOperator = _operators else {
+            return nil
+        }
+        return returnOperator
     }
     
-    var getTotal: Int {
+    var getTotal: Double {
         calculateTotal()
         return _total
     }
 
+    var getCurrentNumber: Double? {
+        guard let number = _currentNumber else {
+            return nil
+        }
+        return number
+    }
     
     // MARK: Setter
     
-    func addStringNumbers(number: String) {
-        _stringNumbers.append(number)
+    func addOperator(signe: String?) {
+        guard signe != nil else {
+            return
+        }
+        _operators = signe
     }
     
-    func addOperator(signe: String) {
-        _operators.append(signe)
+    func setCurrentNumber(_ number: Int) {
+        _currentNumber = Double(number)
     }
     
     // MARK: Methode
 
     func clear() {
         _stringNumbers = [String()]
-        _operators = ["+"]
+        _operators = " "
         _total = 0
     }
     
@@ -66,16 +79,15 @@ class CalculManager {
     }
     
     private func calculateTotal() {
-        for(i, stringNumber) in getEnum {
-            if let number = Int(stringNumber) {
-                let signe = _operators[i]
+        if let number = _currentNumber {
+                let signe = _operators
                 switch signe {
                 case "+": _total += number
                 case "-": _total -= number
                 case "/": _total /= number
                 case "*": _total *= number
                 default: return
-                }
+                
             }
         }
     }

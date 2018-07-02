@@ -21,40 +21,36 @@ class ViewController: UIViewController {
     
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        // spot number in clavier 
-        for (i, numberBtn) in numberButtons.enumerated() {
-            if sender == numberBtn {
-                calcul.addNewNumber(i) // add Int number
+        // spot number in clavier
+        print(sender.tag)
+        calcul.setCurrentNumber(sender.tag)
                 updateDisplay()
-            }
-        }
+        
+        
     }
     
     @IBAction func plus() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "+")
-        calcul.addStringNumbers(number: "")
         updateDisplay()
     }
     
     @IBAction func minus() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "-")
-        calcul.addStringNumbers(number: "")
         updateDisplay()
     }
     
     @IBAction func Multiply() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "*")
-        calcul.addStringNumbers(number: "")
         updateDisplay()
     }
     
     @IBAction func divide() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "/")
-        calcul.addStringNumbers(number: "")
+
         updateDisplay()
     }
     
@@ -73,20 +69,17 @@ class ViewController: UIViewController {
     
     private func isCorrect() -> Bool {
         // check if all is ok
-        if let stringNumber = calcul.getStringNumbers.last {
-            if stringNumber.isEmpty {
-                if calcul.getCount == 1 {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                } else {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                }
-                return false
-            }
+        if calcul.getOperator == " " {
+            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+        } else if calcul.getCurrentNumber == nil {
+            let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+            return false
         }
+        
         return true
     }
     
@@ -100,15 +93,14 @@ class ViewController: UIViewController {
     
     private func updateDisplay() {
         // update textView
-        var text = ""
-        for (i, stringNumber) in calcul.getEnum {
+        var text: String!
             // Add operator
-            if i > 0 {
-                text += calcul.getOperator[i]
-            }
+        guard let currentOperator = calcul.getOperator else { textView.text = "nil"; return }
+            text = "\(currentOperator)"
             // Add number
-            text += stringNumber
-        }
+        guard let currentNumber = calcul.getCurrentNumber else { textView.text = "nil"; return }
+        text = "\(currentNumber)"
+        
         textView.text = text
     }
     
