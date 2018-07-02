@@ -6,7 +6,7 @@
 //  Copyright © 2018 Ambroise Collon. All rights reserved.
 //
 
-class CalculModel {
+class CalculManager {
     
     // MARK: Proprety
     
@@ -17,7 +17,7 @@ class CalculModel {
     
     // MARK: Getter
     
-     var getStringNumbers: [String] {
+    var getStringNumbers: [String] {
         return _stringNumbers
     }
     
@@ -37,6 +37,7 @@ class CalculModel {
         calculateTotal()
         return _total
     }
+
     
     // MARK: Setter
     

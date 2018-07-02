@@ -10,13 +10,13 @@ import XCTest
 @testable import CountOnMe
 
 class CountOnMeTests: XCTestCase {
-    var test = CalculModel()
+    var test = CalculManager()
     let nb1 = 2
     let nb2 = 3
     
     override func setUp() {
         super.setUp()
-        test = CalculModel()
+        test = CalculManager()
     }
     
     func testClass() {
@@ -38,6 +38,7 @@ class CountOnMeTests: XCTestCase {
     }
     
     func testTotalPlus() {
+        // add comment
         test.addOperator(signe: "+")
         test.addStringNumbers(number: "1")
         test.addOperator(signe: "+")

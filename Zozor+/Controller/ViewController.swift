@@ -15,7 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     
-    let calcul = CalculModel() // instance of class CalculModel
+    let calcul = CalculManager() // instance of class CalculModel
     
     // MARK: - Action
     
@@ -60,7 +60,7 @@ class ViewController: UIViewController {
     
     @IBAction func equal() {
         // calcul
-        calculateTotal()
+        displayTotal()
     }
     
     @IBAction func AC() {
@@ -90,7 +90,7 @@ class ViewController: UIViewController {
         return true
     }
     
-    private func calculateTotal() {
+    private func displayTotal() {
         // calcul total
         guard isCorrect() else { return }
         let total = calcul.getTotal
