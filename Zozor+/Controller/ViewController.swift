@@ -27,7 +27,9 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
-
+        if calcul.firstStep {
+            calcul.firstStep = false
+        }
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
         print(calcul.getCurrentNumber)
@@ -42,14 +44,21 @@ class ViewController: UIViewController {
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
         updateDisplay()
+        print(calcul.returnTotal)
     }
     
     @IBAction func minus() {
         guard isCorrect() else { return }
-        calcul.addOperator(signe: "-")
         _displayNumber = _displayNumber + "-"
+//        if _displayNumber == "" {
+        calcul.addOperator(signe: "-")
+        print(calcul.returnTotal)
         calcul.updateResult()
+        print(calcul.returnTotal)
         updateDisplay()
+//        }
+//        calcul.addOperator(signe: "-")
+
     }
     
     @IBAction func Multiply() {
@@ -86,9 +95,10 @@ class ViewController: UIViewController {
     private func isCorrect() -> Bool {
         // check if all is ok
         if calcul.getOperator == "" {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+//            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
+//            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+//            self.present(alertVC, animated: true, completion: nil)
+            
         } else if _displayNumber == "" {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
