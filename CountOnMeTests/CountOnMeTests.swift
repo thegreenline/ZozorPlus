@@ -14,6 +14,12 @@ class CountOnMeTests: XCTestCase {
     let nb1 = 2
     let nb2 = 3
     
+    func addManyNumbers(from fromNumber:Int, to toNumber:Int) {
+        for number in fromNumber...toNumber {
+            test.addCurrentNumber(number)
+        }
+    }
+    
     override func setUp() {
         super.setUp()
         test = CalculManager()
@@ -28,69 +34,90 @@ class CountOnMeTests: XCTestCase {
         
         test.addOperator(signe: "+")
         
-        XCTAssertEqual(plus, test.getOperator.last)
+        XCTAssertEqual(plus, test.getOperator)
     }
-    
+
     func testAddNumber() {
-        test.addNewNumber(nb1)
+        test.addCurrentNumber(nb1)
+
+        XCTAssertEqual(Double(nb1), test.getCurrentNumber)
+    }
+
+    func testGivenJustOneNumber_whenAddAnotherNumber_thenHaveBigNumber() {
+
+        addManyNumbers(from: 1, to: 4)
         
-        XCTAssertEqual(String(nb1), test.getStringNumbers.last)
+        XCTAssertEqual(test.getCurrentNumber, 1234)
     }
     
-    func testTotalPlus() {
-        // add comment
+    func testAddOperator() {
         test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
         
-        XCTAssertEqual(test.getTotal, 3)
-    }
-    func testTotalMinus() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "-")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, -1)
-    }
-    func testTotalMulti() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "*")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 2)
-    }
-    func testTotalDivide() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "/")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 1)
+        XCTAssertEqual(test.getOperator, "+")
     }
     
-    func testTotalDefault() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "n")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 2)
+    func testGivenHaveTowNumber_WhenStartCalcul_ThenResultatCorrect() {
+        //
     }
     
-    func testClear() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "n")
-        test.addStringNumbers(number: "2")
-        
-        test.clear()
-        
-        XCTAssertEqual(test.getStringNumbers, [""])
-        XCTAssertEqual(test.getOperator, ["+"])
-        XCTAssert(test.getTotal == 0)
+    func testGivenHaveManyNumbers_WhenStartCalcul_ThenResultCorrrect() {
+        //
     }
+    
+//    func testTotalPlus() {
+//        // add comment
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(1)
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(2)
+//
+//        XCTAssertEqual(test.getTotal, 3)
+//    }
+//    func testTotalMinus() {
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(1)
+//        test.addOperator(signe: "-")
+//        test.addNewNumber(2)
+//
+//        XCTAssertEqual(test.getTotal, -1)
+//    }
+//    func testTotalMulti() {
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(1)
+//        test.addOperator(signe: "*")
+//        test.addNewNumber(2)
+//        
+//        XCTAssertEqual(test.getTotal, 2)
+//    }
+//    func testTotalDivide() {
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(2)
+//        test.addOperator(signe: "/")
+//        test.addNewNumber(2)
+//
+//        XCTAssertEqual(test.getTotal, 1)
+//    }
+//    
+//    func testTotalDefault() {
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(2)
+//        test.addOperator(signe: "n")
+//        test.addNewNumber(2)
+//
+//        XCTAssertEqual(test.getTotal, 2)
+//    }
+//
+//    func testClear() {
+//        test.addOperator(signe: "+")
+//        test.addNewNumber(2)
+//        test.addOperator(signe: "n")
+//        test.addNewNumber(2)
+//
+//        test.clear()
+//
+//        XCTAssertEqual(test.getStringNumbers, [""])
+//        XCTAssertEqual(test.getOperator, ["+"])
+//        XCTAssert(test.getTotal == 0)
+//    }
     
 }

@@ -10,85 +10,72 @@ class CalculManager {
     
     // MARK: Proprety
     
-    private var _stringNumbers: [String] = [String()] // array of numbers
-    private var _operators: String? // array of signes
-    private var _currentNumber: Double?
+    private var _operators: String = "" // array of signes
+    private var _addTenOrSo = false
+     var _calculEnded = false
     
+    private var _currentNumber = 0.0
+
     private var _total: Double = 0
     
     // MARK: Getter
     
-    var getStringNumbers: [String] {
-        return _stringNumbers
+    var isEnded: Bool {
+        return _calculEnded
     }
     
-    var getEnum: EnumeratedSequence<[String]> {
-        return _stringNumbers.enumerated()
-    }
-    
-    var getCount: Int {
-        return _stringNumbers.count
-    }
-    
-    var getOperator: String? {
-        guard let returnOperator = _operators else {
-            return nil
-        }
-        return returnOperator
+    var getOperator: String {
+        return _operators
     }
     
     var getTotal: Double {
         calculateTotal()
+//        _calculEnded = true
         return _total
     }
+    
+    func updateResult() {
+        calculateTotal()
+//        _calculEnded = false
+    }
 
-    var getCurrentNumber: Double? {
-        guard let number = _currentNumber else {
-            return nil
-        }
-        return number
+    var getCurrentNumber: Double {
+        return _currentNumber
     }
     
     // MARK: Setter
     
-    func addOperator(signe: String?) {
-        guard signe != nil else {
-            return
-        }
+    func addOperator(signe: String) {
         _operators = signe
     }
     
-    func setCurrentNumber(_ number: Int) {
-        _currentNumber = Double(number)
+    func addCurrentNumber(_ number: Int) {
+        if !_addTenOrSo {
+            _currentNumber = Double(number)
+            _addTenOrSo = true
+        } else {
+            _currentNumber = _currentNumber * 10 + Double(number)
+        }
     }
-    
+
     // MARK: Methode
 
     func clear() {
-        _stringNumbers = [String()]
-        _operators = " "
+        _operators = ""
         _total = 0
     }
     
-    func addNewNumber(_ newNumber: Int) {
-        if let stringNumber = getStringNumbers.last {
-            var stringNumberMutable = stringNumber
-            stringNumberMutable += "\(newNumber)"
-            _stringNumbers[getCount - 1] = stringNumberMutable
-        }
-    }
-    
     private func calculateTotal() {
-        if let number = _currentNumber {
-                let signe = _operators
-                switch signe {
-                case "+": _total += number
-                case "-": _total -= number
-                case "/": _total /= number
-                case "*": _total *= number
-                default: return
-                
-            }
+        
+        let signe = _operators
+        switch signe {
+        case "+": _total += _currentNumber; _currentNumber = 0
+        case "-": _total -= _currentNumber
+        case "/": _total /= _currentNumber
+        case "*": _total *= _currentNumber
+        default: return
+            
+            
         }
     }
     

@@ -10,60 +10,87 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     
     let calcul = CalculManager() // instance of class CalculModel
+    private var _displayNumber: String = ""
     
     // MARK: - Action
     
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
-        print(sender.tag)
-        calcul.setCurrentNumber(sender.tag)
-                updateDisplay()
         
-        
+        if calcul.isEnded {
+            _displayNumber.removeAll()
+            _displayNumber = _displayNumber + String(sender.tag)
+            calcul.addCurrentNumber(sender.tag)
+            print(calcul.getCurrentNumber)
+            print(_displayNumber)
+            updateDisplay()
+        } else {
+        _displayNumber = _displayNumber + String(sender.tag)
+        calcul.addCurrentNumber(sender.tag)
+        print(calcul.getCurrentNumber)
+        print(_displayNumber)
+        updateDisplay()
+        }
     }
     
     @IBAction func plus() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "+")
+        _displayNumber = _displayNumber + "+"
+        calcul.updateResult()
         updateDisplay()
+
     }
     
     @IBAction func minus() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "-")
+        _displayNumber = _displayNumber + "-"
+        calcul.updateResult()
         updateDisplay()
     }
     
     @IBAction func Multiply() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "*")
+        _displayNumber = _displayNumber + "x"
+        calcul.updateResult()
         updateDisplay()
     }
     
     @IBAction func divide() {
         guard isCorrect() else { return }
         calcul.addOperator(signe: "/")
-
+        _displayNumber = _displayNumber + "/"
+        calcul.updateResult()
         updateDisplay()
     }
     
     @IBAction func equal() {
         // calcul
         displayTotal()
+//        calcul._calculEnded = true
+        _displayNumber.removeAll()
     }
     
     @IBAction func AC() {
         // reset btn
         calcul.clear()
-        textView.text = ""
+//        textView.text = "0"
+        _displayNumber = "0"
         updateDisplay()
+        _displayNumber.removeAll()
     }
     
     
@@ -73,7 +100,7 @@ class ViewController: UIViewController {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
-        } else if calcul.getCurrentNumber == nil {
+        } else if _displayNumber == "" {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -94,12 +121,12 @@ class ViewController: UIViewController {
     private func updateDisplay() {
         // update textView
         var text: String!
-            // Add operator
-        guard let currentOperator = calcul.getOperator else { textView.text = "nil"; return }
-            text = "\(currentOperator)"
-            // Add number
-        guard let currentNumber = calcul.getCurrentNumber else { textView.text = "nil"; return }
-        text = "\(currentNumber)"
+        // Add number
+//        guard let currentNumber = calcul.getCurrentNumber else { textView.text = "nil"; return }
+        text = "\(_displayNumber)"
+        // Add operator
+//        guard let currentOperator = calcul.getOperator else { textView.text = "nil"; return }
+//        text = "\(currentOperator)"
         
         textView.text = text
     }
