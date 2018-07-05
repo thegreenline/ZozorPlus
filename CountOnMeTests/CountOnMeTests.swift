@@ -112,19 +112,17 @@ class CountOnMeTests: XCTestCase {
         XCTAssertEqual(test.getTotal, 0)
     }
     
-    func testGivenHaveTowNumber_WhenStartCalcul_ThenResultatCorrect() {
-        //
-    }
-    
     func testGivenHaveManyNumbers_WhenStartCalcul_ThenResultCorrrect() {
         //
+        //boucle qui qjoute un nombre au calcul a chaque tour de boucle.
         
     }
     
     func testAllSignes() {
-        let tabSignes = ["+", "-", "*", "/"]
+        let tabSignes = ["-"]
         for signe in tabSignes {
             let result = calculManyNumbers(manyEnd1: 2, manyEnd2: 3, operateur: signe)
+//            test.updateResult()
             XCTAssertEqual(test.getTotal, result)
             print(signe, result)
         }
@@ -138,8 +136,19 @@ class CountOnMeTests: XCTestCase {
         
         print(result)
         print(test.getTotal)
-        XCTAssertEqual(test.getTotal, -124)
+        XCTAssertEqual(test.getTotal, result)
         XCTAssertEqual(test.getCurrentNumber, 0)
+    }
+    
+    func testLeTest() {
+        test.addCurrentNumber(1)
+        test.addCurrentNumber(2)
+        test.addCurrentNumber(3)
+        test.addOperator(signe: "-")
+        test.updateResult()
+        test.addCurrentNumber(1)
+//        test.updateResult()
+        print(test.returnTotal)
     }
     
 //    func testTotalMulti() {

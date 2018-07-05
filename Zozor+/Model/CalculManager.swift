@@ -10,12 +10,13 @@ class CalculManager {
     
     // MARK: Proprety
     
-    private var _operators: String = "" // array of signes
+    private var _operators: String = "+" // array of signes
     private var _addTenOrSo = false
      var _calculEnded = false
     
-    private var _currentNumber = 0.0
-
+    private var _currentNumber: Double = 0
+    private var _previousNumber: Double = 0
+    
     private var _total: Double = 0
     
     // MARK: Getter
@@ -33,7 +34,9 @@ class CalculManager {
 //        _calculEnded = true
         return _total
     }
-    
+    var returnTotal: Double {
+        return _total
+    }
     func updateResult() {
         calculateTotal()
 //        _calculEnded = false
@@ -69,14 +72,20 @@ class CalculManager {
         
         let signe = _operators
         switch signe {
-        case "+": _total += _currentNumber; _currentNumber = 0
-        case "-": _total -= _currentNumber; _currentNumber = 0
-        case "/": _total /= _currentNumber; _currentNumber = 0
-        case "*": _total *= _currentNumber; _currentNumber = 0
-        default: break
-            
-            
+        case "+":
+            _total = _previousNumber + _currentNumber
+            _currentNumber = 0
+        case "-":
+            _total = _previousNumber - _currentNumber
+            _currentNumber = 0
+        case "/":
+            _total /= _currentNumber; _currentNumber = 0
+        case "*":
+            _total *= _currentNumber; _currentNumber = 0
+        default:
+            break
         }
+        _previousNumber = _total
     }
     
 }
