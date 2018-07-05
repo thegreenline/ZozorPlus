@@ -72,9 +72,14 @@ class CalculManager {
                 switch signe {
                 case "+": _total += number
                 case "-": _total -= number
-                case "/": _total /= number
+                case "/":
+                    if number != 0 {
+                    _total /= number
+                    } else {
+                        break
+                    }
                 case "*": _total *= number
-                default: return
+                default: break
                 }
             }
         }
