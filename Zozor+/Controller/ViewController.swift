@@ -20,28 +20,20 @@ class ViewController: UIViewController {
     @IBOutlet var numberButtons: [UIButton]!
     
     let calcul = CalculManager() // instance of class CalculModel
-    private var _displayNumber: String = ""
+     var _displayNumber: String = ""
     
     // MARK: - Action
     
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
-        
-        if calcul.isEnded {
-            _displayNumber.removeAll()
-            _displayNumber = _displayNumber + String(sender.tag)
-            calcul.addCurrentNumber(sender.tag)
-            print(calcul.getCurrentNumber)
-            print(_displayNumber)
-            updateDisplay()
-        } else {
+
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
         print(calcul.getCurrentNumber)
         print(_displayNumber)
         updateDisplay()
-        }
+
     }
     
     @IBAction func plus() {
@@ -50,7 +42,6 @@ class ViewController: UIViewController {
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
         updateDisplay()
-
     }
     
     @IBAction func minus() {
@@ -87,16 +78,14 @@ class ViewController: UIViewController {
     @IBAction func AC() {
         // reset btn
         calcul.clear()
-//        textView.text = "0"
         _displayNumber = "0"
         updateDisplay()
         _displayNumber.removeAll()
     }
     
-    
     private func isCorrect() -> Bool {
         // check if all is ok
-        if calcul.getOperator == " " {
+        if calcul.getOperator == "" {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -106,7 +95,6 @@ class ViewController: UIViewController {
             self.present(alertVC, animated: true, completion: nil)
             return false
         }
-        
         return true
     }
     
@@ -120,14 +108,8 @@ class ViewController: UIViewController {
     
     private func updateDisplay() {
         // update textView
-        var text: String!
-        // Add number
-//        guard let currentNumber = calcul.getCurrentNumber else { textView.text = "nil"; return }
+        var text: String
         text = "\(_displayNumber)"
-        // Add operator
-//        guard let currentOperator = calcul.getOperator else { textView.text = "nil"; return }
-//        text = "\(currentOperator)"
-        
         textView.text = text
     }
     

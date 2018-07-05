@@ -11,20 +11,45 @@ import XCTest
 
 class CountOnMeTests: XCTestCase {
     var test = CalculManager()
+    var view = ViewController()
     let nb1 = 2
     let nb2 = 3
     
-    func addManyNumbers(from fromNumber:Int, to toNumber:Int) {
+    func addManyNumbers(from fromNumber:Int, to toNumber:Int) -> Double {
+        var current = 0.0
         for number in fromNumber...toNumber {
             test.addCurrentNumber(number)
+            current = current * 10 + Double(number)
         }
+        return current
+    }
+    
+    func calculManyNumbers(manyEnd1: Int, manyEnd2: Int, operateur: String) -> Double {
+        let many1 = addManyNumbers(from: 1, to: manyEnd1)
+        test.addOperator(signe: operateur)
+        test.updateResult()
+        let many2 = addManyNumbers(from: 1, to: manyEnd2)
+        let operateur = operateur
+        
+        
+        var result = 0.0
+        switch operateur {
+        case "+": result = many1 + many2
+        case "-": result = many1 - many2
+        case "/": result = many1 / many2
+        case "*": result = many1 * many2
+        default: break
+        }
+        return Double(result)
     }
     
     override func setUp() {
         super.setUp()
         test = CalculManager()
+        view = ViewController()
+        
     }
-    
+
     func testClass() {
         XCTAssertNotNil(test)
     }
@@ -45,9 +70,9 @@ class CountOnMeTests: XCTestCase {
 
     func testGivenJustOneNumber_whenAddAnotherNumber_thenHaveBigNumber() {
 
-        addManyNumbers(from: 1, to: 4)
+        let many1 = addManyNumbers(from: 1, to: 4)
         
-        XCTAssertEqual(test.getCurrentNumber, 1234)
+        XCTAssertEqual(test.getCurrentNumber, many1)
     }
     
     func testAddOperator() {
@@ -56,31 +81,67 @@ class CountOnMeTests: XCTestCase {
         XCTAssertEqual(test.getOperator, "+")
     }
     
+    func testIfFirstClaculIsOver_ThenCurrentNumberIs0() {
+        let result = calculManyNumbers(manyEnd1: 1, manyEnd2: 1, operateur: "+")
+
+        
+        XCTAssertEqual(test.getTotal, result)
+        XCTAssertEqual(test.getCurrentNumber, 0)
+    }
+    
+    func testWhenCalculIsEndend_ThenDisplaedNumberIsRemove() {
+        test._calculEnded = true
+        let calc = test.isEnded
+        
+        XCTAssert(calc)
+        
+        XCTAssertEqual(view._displayNumber, "")
+    }
+    
+    func testGivenManyNumbers_WhenCalculCleared_ThenOperatorAndTotalReset() {
+        let many1 = addManyNumbers(from: 1, to: 3)
+        test.addOperator(signe: "+")
+        test.updateResult()
+        let many2 = addManyNumbers(from: 1, to: 1)
+        let result = many1 + many2
+        
+        XCTAssertEqual(test.getTotal, result)
+        test.clear()
+        
+        XCTAssertEqual(test.getOperator, "")
+        XCTAssertEqual(test.getTotal, 0)
+    }
+    
     func testGivenHaveTowNumber_WhenStartCalcul_ThenResultatCorrect() {
         //
     }
     
     func testGivenHaveManyNumbers_WhenStartCalcul_ThenResultCorrrect() {
         //
+        
     }
     
-//    func testTotalPlus() {
-//        // add comment
-//        test.addOperator(signe: "+")
-//        test.addNewNumber(1)
-//        test.addOperator(signe: "+")
-//        test.addNewNumber(2)
-//
-//        XCTAssertEqual(test.getTotal, 3)
-//    }
-//    func testTotalMinus() {
-//        test.addOperator(signe: "+")
-//        test.addNewNumber(1)
-//        test.addOperator(signe: "-")
-//        test.addNewNumber(2)
-//
-//        XCTAssertEqual(test.getTotal, -1)
-//    }
+    func testAllSignes() {
+        let tabSignes = ["+", "-", "*", "/"]
+        for signe in tabSignes {
+            let result = calculManyNumbers(manyEnd1: 2, manyEnd2: 3, operateur: signe)
+            XCTAssertEqual(test.getTotal, result)
+            print(signe, result)
+        }
+    }
+    func testTotalMinus() {
+        let many1 = addManyNumbers(from: 1, to: 3)
+        test.addOperator(signe: "-")
+        test.updateResult()
+        let many2 = addManyNumbers(from: 1, to: 1)
+        let result = many1 - many2
+        
+        print(result)
+        print(test.getTotal)
+        XCTAssertEqual(test.getTotal, -124)
+        XCTAssertEqual(test.getCurrentNumber, 0)
+    }
+    
 //    func testTotalMulti() {
 //        test.addOperator(signe: "+")
 //        test.addNewNumber(1)

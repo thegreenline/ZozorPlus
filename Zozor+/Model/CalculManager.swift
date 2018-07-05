@@ -70,10 +70,10 @@ class CalculManager {
         let signe = _operators
         switch signe {
         case "+": _total += _currentNumber; _currentNumber = 0
-        case "-": _total -= _currentNumber
-        case "/": _total /= _currentNumber
-        case "*": _total *= _currentNumber
-        default: return
+        case "-": _total -= _currentNumber; _currentNumber = 0
+        case "/": _total /= _currentNumber; _currentNumber = 0
+        case "*": _total *= _currentNumber; _currentNumber = 0
+        default: break
             
             
         }
