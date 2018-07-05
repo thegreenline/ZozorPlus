@@ -28,12 +28,12 @@ class ViewController: UIViewController {
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
         if calcul.firstStep {
-            calcul.firstStep = false
+//            calcul.firstStep = false
         }
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
-        print(calcul.getCurrentNumber)
-        print(_displayNumber)
+        print("Current number\(calcul.getCurrentNumber)")
+        print("displed number \(_displayNumber)")
         updateDisplay()
 
     }
@@ -52,9 +52,9 @@ class ViewController: UIViewController {
         _displayNumber = _displayNumber + "-"
 //        if _displayNumber == "" {
         calcul.addOperator(signe: "-")
-        print(calcul.returnTotal)
+        print("before update returned total \(calcul.returnTotal)")
         calcul.updateResult()
-        print(calcul.returnTotal)
+        print(" after update returned total \(calcul.returnTotal)")
         updateDisplay()
 //        }
 //        calcul.addOperator(signe: "-")

@@ -121,6 +121,7 @@ class CountOnMeTests: XCTestCase {
     func testAllSignes() {
         let tabSignes = ["-"]
         for signe in tabSignes {
+            test.clear()
             let result = calculManyNumbers(manyEnd1: 2, manyEnd2: 3, operateur: signe)
 //            test.updateResult()
             XCTAssertEqual(test.getTotal, result)

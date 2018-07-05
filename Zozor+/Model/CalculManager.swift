@@ -63,7 +63,12 @@ class CalculManager {
 
     func clear() {
         _operators = ""
+        _previousNumber = 0
+        _currentNumber = 0
         _total = 0
+        firstStep = true
+        _addTenOrSo = false
+        _calculEnded = false
     }
     
     private func calculateTotal() {
@@ -71,13 +76,25 @@ class CalculManager {
         let signe = _operators
         switch signe {
         case "+":
-            print(_total)
+            print("before addittion calcul \(_total)")
             _total = _previousNumber + _currentNumber
-            print(_total)
+            print("after addittion calcul \(_total)")
             _currentNumber = 0
         case "-":
-            _total = _previousNumber - _currentNumber
-            _currentNumber = 0
+            print(firstStep)
+            if firstStep {
+                print("before FS soustraction calcul \(_total)")
+                _total += _currentNumber
+                _previousNumber += _currentNumber
+                _currentNumber = 0
+                print("after FS soustraction calcul \(_total)")
+                firstStep = false
+            } else {
+                print("before soustraction calcul \(_total)")
+                _total = _previousNumber - _currentNumber
+                _currentNumber = 0
+                print("after soustraction calcul \(_total)")
+            }
         case "/":
             _total /= _currentNumber; _currentNumber = 0
         case "*":
@@ -85,8 +102,8 @@ class CalculManager {
         default:
             break
         }
-        _previousNumber = _total
-        firstStep = true
+//        _previousNumber = _total
+        firstStep = false
     }
     
 }
