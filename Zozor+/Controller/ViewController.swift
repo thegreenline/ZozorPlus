@@ -19,17 +19,21 @@ class ViewController: UIViewController {
     @IBOutlet weak var textView: UITextView!
     @IBOutlet var numberButtons: [UIButton]!
     
-    let calcul = CalculManager() // instance of class CalculModel
-     var _displayNumber: String = ""
+    private let calcul = CalculManager() // instance of class CalculModel
+    private var _displayNumber: String = ""
     
+    // MARK: XCTest getter
+    
+    var getDisplayNumbers: String {
+        return _displayNumber
+    }
+
     // MARK: - Action
-    
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
-        if calcul.firstStep {
-//            calcul.firstStep = false
-        }
+        calcul.isEnded = false
+        
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
         print("Current number\(calcul.getCurrentNumber)")
@@ -39,7 +43,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus() {
-        guard isCorrect() else { return }
+        guard isCorrect(), !calcul.isEnded else { return }
         calcul.addOperator(signe: "+")
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
@@ -48,21 +52,15 @@ class ViewController: UIViewController {
     }
     
     @IBAction func minus() {
-        guard isCorrect() else { return }
+        guard isCorrect(), !calcul.isEnded else { return }
         _displayNumber = _displayNumber + "-"
-//        if _displayNumber == "" {
         calcul.addOperator(signe: "-")
-        print("before update returned total \(calcul.returnTotal)")
         calcul.updateResult()
-        print(" after update returned total \(calcul.returnTotal)")
         updateDisplay()
-//        }
-//        calcul.addOperator(signe: "-")
-
     }
     
     @IBAction func Multiply() {
-        guard isCorrect() else { return }
+        guard isCorrect(), !calcul.isEnded else { return }
         calcul.addOperator(signe: "*")
         _displayNumber = _displayNumber + "x"
         calcul.updateResult()
@@ -70,7 +68,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divide() {
-        guard isCorrect() else { return }
+        guard isCorrect(), !calcul.isEnded else { return }
         calcul.addOperator(signe: "/")
         _displayNumber = _displayNumber + "/"
         calcul.updateResult()
@@ -79,9 +77,10 @@ class ViewController: UIViewController {
     
     @IBAction func equal() {
         // calcul
-        displayTotal()
-//        calcul._calculEnded = true
-        _displayNumber.removeAll()
+        guard !calcul.isEnded else { return }
+            displayTotal()
+            _displayNumber.removeAll()
+            calcul.isEnded = true
     }
     
     @IBAction func AC() {
@@ -90,6 +89,7 @@ class ViewController: UIViewController {
         _displayNumber = "0"
         updateDisplay()
         _displayNumber.removeAll()
+        calcul.isEnded = false
     }
     
     private func isCorrect() -> Bool {

@@ -12,7 +12,7 @@ class CalculManager {
     
     private var _operators: String = "" // array of signes
     private var _addTenOrSo = false
-     var _calculEnded = false
+    private var _calculEnded = false
     var firstStep = true
     private var _currentNumber: Double = 0
     private var _previousNumber: Double = 0
@@ -22,7 +22,11 @@ class CalculManager {
     // MARK: Getter
     
     var isEnded: Bool {
-        return _calculEnded
+        get {
+            return _calculEnded
+        } set {
+            _calculEnded = newValue
+        }
     }
     
     var getOperator: String {
@@ -76,29 +80,46 @@ class CalculManager {
         let signe = _operators
         switch signe {
         case "+":
-            print("before addittion calcul \(_total)")
-            _total = _previousNumber + _currentNumber
-            print("after addittion calcul \(_total)")
-            _currentNumber = 0
-        case "-":
-            print(firstStep)
             if firstStep {
-                print("before FS soustraction calcul \(_total)")
                 _total += _currentNumber
                 _previousNumber += _currentNumber
                 _currentNumber = 0
-                print("after FS soustraction calcul \(_total)")
                 firstStep = false
             } else {
-                print("before soustraction calcul \(_total)")
+                _total = _previousNumber + _currentNumber
+                _currentNumber = 0
+            }
+        case "-":
+            print(firstStep)
+            if firstStep {
+                _total += _currentNumber
+                _previousNumber += _currentNumber
+                _currentNumber = 0
+                firstStep = false
+            } else {
                 _total = _previousNumber - _currentNumber
                 _currentNumber = 0
-                print("after soustraction calcul \(_total)")
             }
         case "/":
-            _total /= _currentNumber; _currentNumber = 0
+            if firstStep {
+                _total += _currentNumber
+                _previousNumber += _currentNumber
+                _currentNumber = 0
+                firstStep = false
+            } else {
+                _total = _previousNumber / _currentNumber
+                _currentNumber = 0
+            }
         case "*":
-            _total *= _currentNumber; _currentNumber = 0
+            if firstStep {
+                _total += _currentNumber
+                _previousNumber += _currentNumber
+                _currentNumber = 0
+                firstStep = false
+            } else {
+                _total = _previousNumber * _currentNumber
+                _currentNumber = 0
+            }
         default:
             break
         }
