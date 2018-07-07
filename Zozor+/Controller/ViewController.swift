@@ -92,15 +92,22 @@ class ViewController: UIViewController {
         calcul.isEnded = false
     }
     
-    private func isCorrect() -> Bool {
+    private func isCorrect() -> Bool { // mettre toutes le verifs dans le controleur et renvoyer seulement un bool
+        
         // check if all is ok
-        if calcul.getOperator == "" {
-//            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-//            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-//            self.present(alertVC, animated: true, completion: nil)
+        if calcul.getOperator == "" && !calcul.firstStep {
+            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
             
         } else if _displayNumber == "" {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
+            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
+            self.present(alertVC, animated: true, completion: nil)
+            return false
+        }
+        else if calcul.getOperator == "/" && calcul.getCurrentNumber == 0 {
+            let alertVC = UIAlertController(title: "Zero !", message: "Impossible de diviser par 0 !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
