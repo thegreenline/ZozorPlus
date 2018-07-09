@@ -143,9 +143,13 @@ class CountOnMeTests: XCTestCase {
     }
     
     func testStartNewCalc() {
-        test.firstStep = false
+        test.addOperator(signe: "")
+        test.isFirstStep = true
         
         XCTAssertTrue(test.checkFirstStet)
+        
+        test.isFirstStep = false
+        XCTAssertFalse(test.checkFirstStet)
     }
     
 }

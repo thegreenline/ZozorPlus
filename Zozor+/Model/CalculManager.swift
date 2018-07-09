@@ -9,17 +9,24 @@
 class CalculManager {
     
     // MARK: Proprety
-    var checkZero = false
+//    var checkZero = false
     private var _operators: String = "" // array of signes
     private var _addTenOrSo = false
     private var _calculEnded = false
-    var firstStep = true
+    private var _firstStep = true
     private var _currentNumber: Double = 0
     private var _previousNumber: Double = 0
     
     private var _total: Double = 0
     
     // MARK: Getter
+    var isFirstStep: Bool {
+        get {
+            return _firstStep
+        } set {
+            _firstStep = newValue
+        }
+    }
     
     var isEnded: Bool {
         get {
@@ -78,7 +85,7 @@ class CalculManager {
         _previousNumber = 0
         _currentNumber = 0
         _total = 0
-        firstStep = true
+        _firstStep = true
         _addTenOrSo = false
         _calculEnded = false
     }
@@ -92,54 +99,55 @@ class CalculManager {
     }
     
     private func didStartNewCalc() -> Bool {
-        if _operators == "" && !firstStep {
-            return true
+        var returnValue: Bool
+        if _operators == "" && isFirstStep {
+            returnValue = true
         } else {
-            return false
+            returnValue = false
         }
+        return returnValue
     }
     
     private func calculateTotal() {
-        
         let signe = _operators
         switch signe {
         case "+":
-            if firstStep {
+            if _firstStep {
                 _total += _currentNumber
                 _previousNumber += _currentNumber
                 _currentNumber = 0
-                firstStep = false
+                _firstStep = false
             } else {
                 _total = _previousNumber + _currentNumber
                 _currentNumber = 0
             }
         case "-":
-            print(firstStep)
-            if firstStep {
+            print(_firstStep)
+            if _firstStep {
                 _total += _currentNumber
                 _previousNumber += _currentNumber
                 _currentNumber = 0
-                firstStep = false
+                _firstStep = false
             } else {
                 _total = _previousNumber - _currentNumber
                 _currentNumber = 0
             }
         case "/":
-            if firstStep {
+            if _firstStep {
                 _total += _currentNumber
                 _previousNumber += _currentNumber
                 _currentNumber = 0
-                firstStep = false
+                _firstStep = false
             } else {
                 _total = _previousNumber / _currentNumber
                 _currentNumber = 0
             }
         case "*":
-            if firstStep {
+            if _firstStep {
                 _total += _currentNumber
                 _previousNumber += _currentNumber
                 _currentNumber = 0
-                firstStep = false
+                _firstStep = false
             } else {
                 _total = _previousNumber * _currentNumber
                 _currentNumber = 0
@@ -147,7 +155,7 @@ class CalculManager {
         default:
             break
         }
-        firstStep = false
+        _firstStep = false
     }
     
 }
