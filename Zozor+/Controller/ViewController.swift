@@ -95,18 +95,18 @@ class ViewController: UIViewController {
     private func isCorrect() -> Bool { // mettre toutes le verifs dans le controleur et renvoyer seulement un bool
         
         // check if all is ok
-        if calcul.getOperator == "" && !calcul.firstStep {
+        if calcul.checkFirstStet {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
-            
+            return false
         } else if _displayNumber == "" {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
         }
-        else if calcul.getOperator == "/" && calcul.getCurrentNumber == 0 {
+        else if calcul.checkIfDiviseWithZero {
             let alertVC = UIAlertController(title: "Zero !", message: "Impossible de diviser par 0 !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)

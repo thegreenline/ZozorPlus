@@ -133,4 +133,19 @@ class CountOnMeTests: XCTestCase {
         XCTAssertEqual(test.getCurrentNumber, 0)
     }
     
+    func testCanDivideWithZero () {
+        test.addCurrentNumber(3)
+        test.addOperator(signe: "/")
+        test.addCurrentNumber(0)
+        test.updateResult()
+
+        XCTAssertTrue(test.checkIfDiviseWithZero)
+    }
+    
+    func testStartNewCalc() {
+        test.firstStep = false
+        
+        XCTAssertTrue(test.checkFirstStet)
+    }
+    
 }

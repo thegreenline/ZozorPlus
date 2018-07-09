@@ -9,7 +9,7 @@
 class CalculManager {
     
     // MARK: Proprety
-    
+    var checkZero = false
     private var _operators: String = "" // array of signes
     private var _addTenOrSo = false
     private var _calculEnded = false
@@ -48,6 +48,14 @@ class CalculManager {
         return _currentNumber
     }
     
+    var checkFirstStet: Bool {
+       return didStartNewCalc()
+    }
+    
+    var checkIfDiviseWithZero: Bool {
+        return canDiviseWithZero()
+    }
+    
     // MARK: Setter
     
     func addOperator(signe: String) {
@@ -73,6 +81,22 @@ class CalculManager {
         firstStep = true
         _addTenOrSo = false
         _calculEnded = false
+    }
+    
+    private func canDiviseWithZero() -> Bool {
+        var isZero = false
+        if _operators == "/" && _currentNumber == 0 {
+            isZero = true
+        }
+        return isZero
+    }
+    
+    private func didStartNewCalc() -> Bool {
+        if _operators == "" && !firstStep {
+            return true
+        } else {
+            return false
+        }
     }
     
     private func calculateTotal() {
@@ -123,7 +147,6 @@ class CalculManager {
         default:
             break
         }
-//        _previousNumber = _total
         firstStep = false
     }
     
