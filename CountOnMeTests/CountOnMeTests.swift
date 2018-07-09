@@ -145,11 +145,12 @@ class CountOnMeTests: XCTestCase {
     func testStartNewCalc() {
         test.addOperator(signe: "")
         test.isFirstStep = true
+        test.getCurrentNumber = nil
         
-        XCTAssertTrue(test.checkFirstStet)
+        XCTAssertTrue(test.checkFirstStep)
         
         test.isFirstStep = false
-        XCTAssertFalse(test.checkFirstStet)
+        XCTAssertFalse(test.checkFirstStep)
     }
     
 }

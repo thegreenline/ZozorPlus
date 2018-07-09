@@ -52,13 +52,18 @@ class CalculManager {
     }
 
     var getCurrentNumber: Double? {
-        guard let currentNumber = _currentNumber else {
+        // rename correctly
+        get {
+            guard let currentNumber = _currentNumber else {
             return nil
         }
-        return currentNumber
+            return currentNumber }
+        set {
+            _currentNumber = newValue
+        }
     }
     
-    var checkFirstStet: Bool {
+    var checkFirstStep: Bool {
        return didStartNewCalc()
     }
     
@@ -75,13 +80,13 @@ class CalculManager {
     func addCurrentNumber(_ number: Int) {
         
         if !_addTenOrSo {
-            _currentNumber = Double(number)
+            getCurrentNumber = Double(number)
             _addTenOrSo = true
         } else {
             guard let currentNumber = _currentNumber else {
                 return
             }
-            _currentNumber = currentNumber * 10 + Double(number)
+            getCurrentNumber = currentNumber * 10 + Double(number)
         }
     }
 
@@ -90,8 +95,8 @@ class CalculManager {
     func clear() {
         _operators = ""
         _previousNumber = 0
-        _currentNumber = nil
-        _total = 0
+        getCurrentNumber = nil
+//        _total = 0
         _firstStep = true
         _addTenOrSo = false
         _calculEnded = false
@@ -107,7 +112,7 @@ class CalculManager {
     
     private func didStartNewCalc() -> Bool {
         var returnValue: Bool
-        if _operators == "" && isFirstStep && _currentNumber == 0 {
+        if _operators == "" && isFirstStep && _currentNumber == nil {
             returnValue = true
         } else {
             returnValue = false
@@ -125,42 +130,41 @@ class CalculManager {
             if _firstStep {
                 _total += currentNumber
                 _previousNumber += currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
                 _firstStep = false
             } else {
                 _total = _previousNumber + currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
             }
         case "-":
-            print(_firstStep)
             if _firstStep {
                 _total += currentNumber
                 _previousNumber += currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
                 _firstStep = false
             } else {
                 _total = _previousNumber - currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
             }
         case "/":
             if _firstStep {
                 _total += currentNumber
                 _previousNumber += currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
                 _firstStep = false
             } else {
                 _total = _previousNumber / currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
             }
         case "*":
             if _firstStep {
                 _total += currentNumber
                 _previousNumber += currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
                 _firstStep = false
             } else {
                 _total = _previousNumber * currentNumber
-                _currentNumber = 0
+                getCurrentNumber = 0
             }
         default:
             break

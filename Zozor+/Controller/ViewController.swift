@@ -41,19 +41,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus() {
-        guard isCorrect(), !calcul.isEnded else { return }
+        guard isCorrect() else {
+            if calcul.isEnded {
+                // do repet last operation
+                print("check end ok")
+                 calcul.addCurrentNumber(Int(calcul.returnTotal))
+            }
+            return
+        }
+        // do start new calcul
+        guard calcul.getOperator == "" else {
+            return
+        }
         calcul.addOperator(signe: "+")
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
         updateDisplay()
-        if calcul.isEnded {
-            print("not ended")
-        }
-        
     }
     
     @IBAction func minus() {
-        guard isCorrect(), !calcul.isEnded else { return }
+        guard isCorrect(), !calcul.isEnded else {
+            return
+        }
+        // do start new calcul
+        guard calcul.getOperator == "" else { return }
         _displayNumber = _displayNumber + "-"
         calcul.addOperator(signe: "-")
         calcul.updateResult()
@@ -61,7 +72,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func Multiply() {
-        guard isCorrect(), !calcul.isEnded else { return }
+        guard isCorrect(), !calcul.isEnded else {
+            return
+        }
+        // do start new calcul
+        guard calcul.getOperator == "" else { return }
         calcul.addOperator(signe: "*")
         _displayNumber = _displayNumber + "x"
         calcul.updateResult()
@@ -69,7 +84,11 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divide() {
-        guard isCorrect(), !calcul.isEnded else { return }
+        guard isCorrect(), !calcul.isEnded else {
+            return
+        }
+        // do start new calcul
+        guard calcul.getOperator == "" else { return }
         calcul.addOperator(signe: "/")
         _displayNumber = _displayNumber + "/"
         calcul.updateResult()
@@ -96,7 +115,7 @@ class ViewController: UIViewController {
     private func isCorrect() -> Bool { // mettre toutes le verifs dans le controleur et renvoyer seulement un bool
         
         // check if all is ok
-        if calcul.checkFirstStet {
+        if calcul.checkFirstStep {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
