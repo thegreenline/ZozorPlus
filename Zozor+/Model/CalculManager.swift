@@ -100,7 +100,7 @@ class CalculManager {
     
     private func didStartNewCalc() -> Bool {
         var returnValue: Bool
-        if _operators == "" && isFirstStep {
+        if _operators == "" && isFirstStep && _currentNumber == 0 {
             returnValue = true
         } else {
             returnValue = false

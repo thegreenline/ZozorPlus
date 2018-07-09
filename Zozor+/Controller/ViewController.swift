@@ -36,8 +36,6 @@ class ViewController: UIViewController {
         
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
-        print("Current number\(calcul.getCurrentNumber)")
-        print("displed number \(_displayNumber)")
         updateDisplay()
 
     }
@@ -48,7 +46,10 @@ class ViewController: UIViewController {
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
         updateDisplay()
-        print(calcul.returnTotal)
+        if calcul.isEnded {
+            print("not ended")
+        }
+        
     }
     
     @IBAction func minus() {
