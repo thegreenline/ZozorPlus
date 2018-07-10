@@ -163,6 +163,7 @@ class CalculManager {
         guard let currentNumber = _currentNumber else { return }
         let signe = _operators
         switch signe {
+        // FIXME: why 1 + 0.5 = 0.5 ??
         case "+":
             // FIXME: enchainement calcul + voir chaque //
 //            if isEnded {// !!
@@ -191,6 +192,7 @@ class CalculManager {
 //                }
                 
             }
+//                FIXME: why 1 - 0.5 = -0.5 ??
         case "-":
             // FIXME: enchainement clacul - voir chaque //
 //            if isEnded {//
