@@ -7,75 +7,57 @@
 //
 
 class CalculManager {
-    
     // MARK: Proprety
-//    var checkZero = false
+    
     private var _operators: String = "" // array of signes
     private var _addTenOrSo = false
     private var _calculEnded = false
     private var _firstStep = true
     private var _currentNumber: Double?
     private var _previousNumber: Double = 0
-    
     private var _total: Double = 0
     
     // MARK: Getter
-    var isFirstStep: Bool {
-        get {
-            return _firstStep
-        } set {
-            _firstStep = newValue
-        }
-    }
-    
-    var isEnded: Bool {
-        get {
-            return _calculEnded
-        } set {
-            _calculEnded = newValue
-        }
-    }
+
     
     var getOperator: String {
+        // return current operato
         return _operators
     }
     
     var getTotal: Double {
+        // calucul total and return total
         calculateTotal()
         return _total
     }
     var returnTotal: Double {
+        // only return total
         return _total
     }
     func updateResult() {
+        // only calcul total
         calculateTotal()
     }
     
-    var getSetCurrentNumber: Double? {
-        get {
-            guard let currentNumber = _currentNumber else { return nil }
-            return currentNumber
-        } set {
-            _currentNumber = newValue
-        }
-    }
-    
     var checkFirstStep: Bool {
+        // return check if is the first step of calcul
        return didStartNewCalc()
     }
     
     var checkIfDiviseWithZero: Bool {
+        // return check if try to divise with 0
         return canDiviseWithZero()
     }
     
     // MARK: Setter
     
     func addOperator(signe: String) {
+        // set new operator
         _operators = signe
     }
     
     func addCurrentNumber(_ number: Int) {
-        
+        // verify and add a new nember
         if !_addTenOrSo {
             getSetCurrentNumber = Double(number)
             _addTenOrSo = true
@@ -87,20 +69,52 @@ class CalculManager {
             getSetCurrentNumber = currentNumber * 10 + Double(number)
         }
     }
+    
+    // MARK: getter setter
 
+    var isFirstStep: Bool {
+        // return bool of the fist step and attibut newvalue
+        get {
+            return _firstStep
+        } set {
+            _firstStep = newValue
+        }
+    }
+    
+    var isEnded: Bool {
+        // return bool of calcul is ended and attibut newvalue
+        get {
+            return _calculEnded
+        } set {
+            _calculEnded = newValue
+        }
+    }
+    
+    var getSetCurrentNumber: Double? {
+        // return current number if is not nil and set new value of currentNumber (for Unit test)
+        get {
+            guard let currentNumber = _currentNumber else { return nil }
+            return currentNumber
+        } set {
+            _currentNumber = newValue
+        }
+    }
+    
     // MARK: Methode
 
     func clear() {
+        // reset
         _operators = ""
         _previousNumber = 0
         _currentNumber = nil
         _total = 0
         _firstStep = true
         _addTenOrSo = false
-//        _calculEnded = false
     }
     
     private func canDiviseWithZero() -> Bool {
+        // check if try to divise with 0
+
         var isZero = false
         if _operators == "/" && _currentNumber == 0 {
             isZero = true
@@ -109,6 +123,8 @@ class CalculManager {
     }
     
     private func didStartNewCalc() -> Bool {
+        // check if is the first step of calcul
+
         var returnValue: Bool
         if _operators == "" && isFirstStep && _currentNumber == nil {
             returnValue = true
@@ -119,6 +135,7 @@ class CalculManager {
     }
     
     private func calculFirstStep(_ currentNumber: Double) {
+        // refactor of redondante part of the calcul method
         _total += currentNumber
         _previousNumber += currentNumber
         _total = 0
@@ -127,9 +144,8 @@ class CalculManager {
     }
     
     private func calculateTotal() {
+        // calcul result
         guard let currentNumber = _currentNumber else { return }
-//        guard let previousNumber = _previousNumber else { return }
-//        guard let total = _total else { return }
         let signe = _operators
         switch signe {
         case "+":

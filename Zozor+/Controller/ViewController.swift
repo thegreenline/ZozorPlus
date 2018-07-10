@@ -37,7 +37,6 @@ class ViewController: UIViewController {
             calcul.clear()
         }
         calcul.isEnded = false
-        
         _displayNumber = _displayNumber + String(sender.tag)
         calcul.addCurrentNumber(sender.tag)
         updateDisplay()
@@ -45,6 +44,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus() {
+        // action when plus btn is presed
+        
         guard isCorrect(), !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
@@ -63,6 +64,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func minus() {
+        // action when minus btn is presed
+
         guard isCorrect(), !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
@@ -73,14 +76,16 @@ class ViewController: UIViewController {
             return
         }
         // do start new calcul
-
-        _displayNumber = _displayNumber + "-"
+        
         calcul.addOperator(signe: "-")
+        _displayNumber = _displayNumber + "-"
         calcul.updateResult()
         updateDisplay()
     }
     
     @IBAction func Multiply() {
+        // action when multyply btn is presed
+
         guard isCorrect(), !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
@@ -99,6 +104,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func divide() {
+        // action when divide btn is presed
+
         guard isCorrect(), !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
@@ -117,7 +124,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func equal() {
-        // calcul
+        // action when equal btn is presed
+
         guard !calcul.isEnded else { return }
             displayTotal()
             _displayNumber.removeAll()
@@ -126,7 +134,8 @@ class ViewController: UIViewController {
     }
     
     @IBAction func AC() {
-        // reset btn
+        // action when reset btn is presed
+        
         calcul.clear()
         _displayNumber = "0"
         updateDisplay()
@@ -134,9 +143,9 @@ class ViewController: UIViewController {
         calcul.isEnded = false
     }
     
-    private func isCorrect() -> Bool { // mettre toutes le verifs dans le controleur et renvoyer seulement un bool
-        
+    private func isCorrect() -> Bool {
         // check if all is ok
+        
         if calcul.checkFirstStep {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
@@ -159,15 +168,16 @@ class ViewController: UIViewController {
     }
     
     private func displayTotal() {
-        // calcul total
+        // display total on screen
+
         guard isCorrect() else { return }
         let total = calcul.getTotal
         textView.text = textView.text + " = \(total)"
-//        calcul.clear()
     }
     
     private func updateDisplay() {
-        // update textView
+        // update textView with new content
+        
         var text: String
         text = "\(_displayNumber)"
         textView.text = text
