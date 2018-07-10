@@ -169,7 +169,7 @@
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9t-JB-KHx">
                                                 <rect key="frame" x="0.0" y="0.0" width="104.5" height="63"/>
-                                                <color key="backgroundColor" red="0.46913260918215349" green="0.71495165745856348" blue="0.62407517235679066" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <color key="backgroundColor" red="0.47058823529411764" green="0.71372549019607845" blue="0.62352941176470589" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="42"/>
                                                 <state key="normal" title="+">
                                                     <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -248,7 +248,7 @@
                                 </subviews>
                             </stackView>
                         </subviews>
-                        <color key="backgroundColor" red="0.875366885359116" green="0.84808511391900776" blue="0.83804947389843787" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="backgroundColor" red="0.87450980392156863" green="0.84705882352941175" blue="0.83921568627450982" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="JCS-G8-93l" firstAttribute="top" secondItem="aiF-me-Far" secondAttribute="bottom" constant="25" id="2ub-um-4vF"/>
                             <constraint firstItem="JCS-G8-93l" firstAttribute="leading" secondItem="CT0-fb-Raf" secondAttribute="leading" id="3gq-1U-EjE"/>
