@@ -118,7 +118,12 @@ class ViewController: UIViewController {
     
     @IBAction func equal() {
         // calcul
-        guard !calcul.isEnded else { return }
+        guard !calcul.isEnded else {
+            //          FIXME: chainage du calcul
+            calcul.getSetCurrentNumber = calcul.returnTotal
+            print(calcul.getSetCurrentNumber!)
+            return
+        }
             displayTotal()
             _displayNumber.removeAll()
             calcul.isEnded = true
