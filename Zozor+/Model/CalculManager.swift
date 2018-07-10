@@ -96,7 +96,7 @@ class CalculManager {
         _operators = ""
         _previousNumber = 0
         getCurrentNumber = nil
-//        _total = 0
+        _total = 0
         _firstStep = true
         _addTenOrSo = false
         _calculEnded = false
@@ -121,49 +121,54 @@ class CalculManager {
     }
     
     private func calculateTotal() {
-        guard let currentNumber = _currentNumber else {
-            return
-        }
+        guard let currentNumber = _currentNumber else { return }
+//        guard let previousNumber = _previousNumber else { return }
+//        guard let total = _total else { return }
         let signe = _operators
         switch signe {
         case "+":
             if _firstStep {
                 _total += currentNumber
                 _previousNumber += currentNumber
+                _total = 0
                 getCurrentNumber = 0
                 _firstStep = false
+                print("total :\(_total) current :\(_currentNumber!) previus:  \(_currentNumber!)")
+
             } else {
                 _total = _previousNumber + currentNumber
+                print("\(_total) = \(_previousNumber) + \(currentNumber)")
                 getCurrentNumber = 0
+                _previousNumber = _total
             }
         case "-":
             if _firstStep {
-                _total += currentNumber
-                _previousNumber += currentNumber
+                _total += _currentNumber!
+                _previousNumber += _currentNumber!
                 getCurrentNumber = 0
                 _firstStep = false
             } else {
-                _total = _previousNumber - currentNumber
+                _total = _previousNumber - _currentNumber!
                 getCurrentNumber = 0
             }
         case "/":
             if _firstStep {
-                _total += currentNumber
-                _previousNumber += currentNumber
+                _total += _currentNumber!
+                _previousNumber += _currentNumber!
                 getCurrentNumber = 0
                 _firstStep = false
             } else {
-                _total = _previousNumber / currentNumber
+                _total = _previousNumber / _currentNumber!
                 getCurrentNumber = 0
             }
         case "*":
             if _firstStep {
-                _total += currentNumber
-                _previousNumber += currentNumber
+                _total += _currentNumber!
+                _previousNumber += _currentNumber!
                 getCurrentNumber = 0
                 _firstStep = false
             } else {
-                _total = _previousNumber * currentNumber
+                _total = _previousNumber * _currentNumber!
                 getCurrentNumber = 0
             }
         default:

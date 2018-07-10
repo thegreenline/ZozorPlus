@@ -50,9 +50,10 @@ class ViewController: UIViewController {
             return
         }
         // do start new calcul
-        guard calcul.getOperator == "" else {
-            return
-        }
+        
+//        guard calcul.getOperator == "" else {
+//            return
+//        }
         calcul.addOperator(signe: "+")
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
