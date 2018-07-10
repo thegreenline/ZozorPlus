@@ -65,14 +65,19 @@ class CountOnMeTests: XCTestCase {
     func testAddNumber() {
         test.addCurrentNumber(nb1)
 
-        XCTAssertEqual(Double(nb1), test.getCurrentNumber)
+        XCTAssertEqual(Double(nb1), test.getSetCurrentNumber)
     }
 
     func testGivenJustOneNumber_whenAddAnotherNumber_thenHaveBigNumber() {
 
         let many1 = addManyNumbers(from: 1, to: 4)
         
-        XCTAssertEqual(test.getCurrentNumber, many1)
+        XCTAssertEqual(test.getSetCurrentNumber, many1)
+        XCTAssertNotNil(test.getSetCurrentNumber)
+    }
+    
+    func testCurrentNumberReturnNilOnStart() {
+        XCTAssertNil(test.getSetCurrentNumber)
     }
     
     func testAddOperator() {
@@ -86,7 +91,7 @@ class CountOnMeTests: XCTestCase {
 
         
         XCTAssertEqual(test.getTotal, result)
-        XCTAssertEqual(test.getCurrentNumber, 0)
+        XCTAssertEqual(test.getSetCurrentNumber, 0)
     }
     
     func testWhenCalculIsEndend_ThenDisplaedNumberIsRemove() {
@@ -130,7 +135,7 @@ class CountOnMeTests: XCTestCase {
         let result = many1 - many2
         
         XCTAssertEqual(test.getTotal, result)
-        XCTAssertEqual(test.getCurrentNumber, 0)
+        XCTAssertEqual(test.getSetCurrentNumber, 0)
     }
     
     func testCanDivideWithZero () {
@@ -145,7 +150,7 @@ class CountOnMeTests: XCTestCase {
     func testStartNewCalc() {
         test.addOperator(signe: "")
         test.isFirstStep = true
-        test.getCurrentNumber = nil
+        test.getSetCurrentNumber = nil
         
         XCTAssertTrue(test.checkFirstStep)
         

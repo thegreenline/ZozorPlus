@@ -32,6 +32,10 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
+        
+        if calcul.getOperator == "" && calcul.isEnded {
+            calcul.clear()
+        }
         calcul.isEnded = false
         
         _displayNumber = _displayNumber + String(sender.tag)
@@ -41,19 +45,17 @@ class ViewController: UIViewController {
     }
     
     @IBAction func plus() {
-        guard isCorrect() else {
+        guard isCorrect(), !calcul.isEnded else {
             if calcul.isEnded {
-                // do repet last operation
-                print("check end ok")
-                 calcul.addCurrentNumber(Int(calcul.returnTotal))
+                // do take last result for new operation
+                calcul.addOperator(signe: "+")
+                _displayNumber = String(calcul.returnTotal) + "+"
+                updateDisplay()
             }
             return
         }
         // do start new calcul
         
-//        guard calcul.getOperator == "" else {
-//            return
-//        }
         calcul.addOperator(signe: "+")
         _displayNumber = _displayNumber + "+"
         calcul.updateResult()
@@ -62,10 +64,16 @@ class ViewController: UIViewController {
     
     @IBAction func minus() {
         guard isCorrect(), !calcul.isEnded else {
+            if calcul.isEnded {
+                // do take last result for new operation
+                calcul.addOperator(signe: "-")
+                _displayNumber = String(calcul.returnTotal) + "-"
+                updateDisplay()
+            }
             return
         }
         // do start new calcul
-        guard calcul.getOperator == "" else { return }
+
         _displayNumber = _displayNumber + "-"
         calcul.addOperator(signe: "-")
         calcul.updateResult()
@@ -74,10 +82,16 @@ class ViewController: UIViewController {
     
     @IBAction func Multiply() {
         guard isCorrect(), !calcul.isEnded else {
+            if calcul.isEnded {
+                // do take last result for new operation
+                calcul.addOperator(signe: "*")
+                _displayNumber = String(calcul.returnTotal) + "*"
+                updateDisplay()
+            }
             return
         }
         // do start new calcul
-        guard calcul.getOperator == "" else { return }
+
         calcul.addOperator(signe: "*")
         _displayNumber = _displayNumber + "x"
         calcul.updateResult()
@@ -86,10 +100,16 @@ class ViewController: UIViewController {
     
     @IBAction func divide() {
         guard isCorrect(), !calcul.isEnded else {
+            if calcul.isEnded {
+                // do take last result for new operation
+                calcul.addOperator(signe: "/")
+                _displayNumber = String(calcul.returnTotal) + "/"
+                updateDisplay()
+            }
             return
         }
         // do start new calcul
-        guard calcul.getOperator == "" else { return }
+
         calcul.addOperator(signe: "/")
         _displayNumber = _displayNumber + "/"
         calcul.updateResult()
@@ -102,6 +122,7 @@ class ViewController: UIViewController {
             displayTotal()
             _displayNumber.removeAll()
             calcul.isEnded = true
+        calcul.addOperator(signe: "")
     }
     
     @IBAction func AC() {
@@ -121,7 +142,8 @@ class ViewController: UIViewController {
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
-        } else if _displayNumber == "" {
+        }
+        else if _displayNumber == "" && calcul.isFirstStep {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -141,7 +163,7 @@ class ViewController: UIViewController {
         guard isCorrect() else { return }
         let total = calcul.getTotal
         textView.text = textView.text + " = \(total)"
-        calcul.clear()
+//        calcul.clear()
     }
     
     private func updateDisplay() {

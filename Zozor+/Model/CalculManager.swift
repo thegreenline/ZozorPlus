@@ -50,15 +50,12 @@ class CalculManager {
     func updateResult() {
         calculateTotal()
     }
-
-    var getCurrentNumber: Double? {
-        // rename correctly
+    
+    var getSetCurrentNumber: Double? {
         get {
-            guard let currentNumber = _currentNumber else {
-            return nil
-        }
-            return currentNumber }
-        set {
+            guard let currentNumber = _currentNumber else { return nil }
+            return currentNumber
+        } set {
             _currentNumber = newValue
         }
     }
@@ -80,13 +77,14 @@ class CalculManager {
     func addCurrentNumber(_ number: Int) {
         
         if !_addTenOrSo {
-            getCurrentNumber = Double(number)
+            getSetCurrentNumber = Double(number)
             _addTenOrSo = true
         } else {
             guard let currentNumber = _currentNumber else {
+                _currentNumber = nil
                 return
             }
-            getCurrentNumber = currentNumber * 10 + Double(number)
+            getSetCurrentNumber = currentNumber * 10 + Double(number)
         }
     }
 
@@ -95,11 +93,11 @@ class CalculManager {
     func clear() {
         _operators = ""
         _previousNumber = 0
-        getCurrentNumber = nil
+        _currentNumber = nil
         _total = 0
         _firstStep = true
         _addTenOrSo = false
-        _calculEnded = false
+//        _calculEnded = false
     }
     
     private func canDiviseWithZero() -> Bool {
@@ -124,7 +122,7 @@ class CalculManager {
         _total += currentNumber
         _previousNumber += currentNumber
         _total = 0
-        getCurrentNumber = 0
+        getSetCurrentNumber = 0
         _firstStep = false
     }
     
@@ -139,7 +137,7 @@ class CalculManager {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber + currentNumber
-                getCurrentNumber = 0
+                getSetCurrentNumber = 0
                 _previousNumber = _total
             }
         case "-":
@@ -147,7 +145,7 @@ class CalculManager {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber - currentNumber
-                getCurrentNumber = 0
+                getSetCurrentNumber = 0
                 _previousNumber = _total
             }
         case "/":
@@ -155,7 +153,7 @@ class CalculManager {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber / currentNumber
-                getCurrentNumber = 0
+                getSetCurrentNumber = 0
                 _previousNumber = _total
             }
         case "*":
@@ -163,7 +161,7 @@ class CalculManager {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber * currentNumber
-                getCurrentNumber = 0
+                getSetCurrentNumber = 0
                 _previousNumber = _total
             }
         default:
