@@ -133,13 +133,20 @@ class ViewController: UIViewController {
         updateDisplay()
     }
     
+    @IBAction func addComma() {
+         calcul.isDecimal = true
+        _displayNumber = _displayNumber + "."
+        updateDisplay()
+    }
+    
     @IBAction func equal() {
         // action when equal btn is presed
 
         guard !calcul.isEnded else { return }
+        calcul.isEnded = true
             displayTotal()
             _displayNumber.removeAll()
-            calcul.isEnded = true
+//            calcul.isEnded = true
         calcul.addOperator(signe: "")
     }
     

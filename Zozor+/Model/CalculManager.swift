@@ -13,6 +13,7 @@ class CalculManager {
     private var _addTenOrSo = false
     private var _calculEnded = false
     private var _firstStep = true
+    private var _isDecimal = false
     private var _currentNumber: Double?
     private var _previousNumber: Double = 0
     private var _total: Double = 0
@@ -58,6 +59,11 @@ class CalculManager {
     
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
+        
+        if isDecimal {
+            guard let currentNumber = _currentNumber else { return }
+            _previousNumber = currentNumber + Double(number) / 10
+        }
         if !_addTenOrSo {
             getSetCurrentNumber = Double(number)
             _addTenOrSo = true
@@ -100,6 +106,14 @@ class CalculManager {
         }
     }
     
+    var isDecimal: Bool {
+        get {
+            return _isDecimal
+        } set {
+            _isDecimal = newValue
+        }
+    }
+    
     // MARK: Methode
 
     func clear() {
@@ -110,6 +124,7 @@ class CalculManager {
         _total = 0
         _firstStep = true
         _addTenOrSo = false
+        _calculEnded = false
     }
     
     private func canDiviseWithZero() -> Bool {
@@ -149,21 +164,63 @@ class CalculManager {
         let signe = _operators
         switch signe {
         case "+":
-            if _firstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                _total = _previousNumber + currentNumber
-                getSetCurrentNumber = 0
-                _previousNumber = _total
+            // FIXME: enchainement calcul + voir chaque //
+//            if isEnded {// !!
+//                _currentNumber = _previousNumber// !!
+//                _total = _previousNumber + _currentNumber!// !!!
+//            } else {
+                if _firstStep {
+                    calculFirstStep(currentNumber)
+                } else {
+                    if isDecimal {
+                        print("is decimal")
+                        
+                        _total = _total + _previousNumber // !!
+                        _previousNumber = _total
+                        
+                        getSetCurrentNumber = 0
+                        
+                        isDecimal = false
+                    } else {
+                        print("is not decimal")
+                        _total = _previousNumber + currentNumber
+                        
+                        getSetCurrentNumber = 0
+                        _previousNumber = _total
+                    }
+//                }
+                
             }
         case "-":
-            if _firstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                _total = _previousNumber - currentNumber
-                getSetCurrentNumber = 0
-                _previousNumber = _total
+            // FIXME: enchainement clacul - voir chaque //
+//            if isEnded {//
+//                _currentNumber = _total //
+//                _total = _currentNumber! - _previousNumber//
+//            } else {
+                if _firstStep {
+                    calculFirstStep(currentNumber)
+                } else {
+                    if isDecimal {
+                        print("is decimal")
+                        
+                        _total = _total - _previousNumber // !!
+                        _previousNumber = _total
+                        
+                        getSetCurrentNumber = 0
+                        isDecimal = false
+                    } else {
+                        print("is not decimal")
+                        _total = _previousNumber - currentNumber
+                        getSetCurrentNumber = 0
+                        _previousNumber = _total
+                    }
+//                }
+                
             }
+//                _total = _previousNumber - currentNumber
+//                getSetCurrentNumber = 0
+//                _previousNumber = _total
+//            }
         case "/":
             if _firstStep {
                 calculFirstStep(currentNumber)
