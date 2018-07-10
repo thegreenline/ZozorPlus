@@ -30,10 +30,20 @@ class ViewController: UIViewController {
 
     // MARK: - Action
     
+    var needToClear: Bool {
+        // refactor check if operator is present at the end of calcul
+        
+        if calcul.getOperator == "" && calcul.isEnded {
+            return true
+        } else {
+            return false
+        }
+    }
+    
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
         
-        if calcul.getOperator == "" && calcul.isEnded {
+        if needToClear {
             calcul.clear()
         }
         calcul.isEnded = false
@@ -46,7 +56,7 @@ class ViewController: UIViewController {
     @IBAction func plus() {
         // action when plus btn is presed
         
-        guard isCorrect(), !calcul.isEnded else {
+        guard isCorrect, !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "+")
@@ -66,7 +76,7 @@ class ViewController: UIViewController {
     @IBAction func minus() {
         // action when minus btn is presed
 
-        guard isCorrect(), !calcul.isEnded else {
+        guard isCorrect, !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "-")
@@ -86,7 +96,7 @@ class ViewController: UIViewController {
     @IBAction func Multiply() {
         // action when multyply btn is presed
 
-        guard isCorrect(), !calcul.isEnded else {
+        guard isCorrect, !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "*")
@@ -106,7 +116,7 @@ class ViewController: UIViewController {
     @IBAction func divide() {
         // action when divide btn is presed
 
-        guard isCorrect(), !calcul.isEnded else {
+        guard isCorrect, !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "/")
@@ -143,7 +153,7 @@ class ViewController: UIViewController {
         calcul.isEnded = false
     }
     
-    private func isCorrect() -> Bool {
+    private var isCorrect: Bool {
         // check if all is ok
         
         if calcul.checkFirstStep {
@@ -170,7 +180,7 @@ class ViewController: UIViewController {
     private func displayTotal() {
         // display total on screen
 
-        guard isCorrect() else { return }
+        guard isCorrect else { return }
         let total = calcul.getTotal
         textView.text = textView.text + " = \(total)"
     }
