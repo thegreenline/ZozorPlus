@@ -20,41 +20,18 @@ class ViewController: UIViewController {
     @IBOutlet var numberButtons: [UIButton]!
     
     private let calcul = CalculManager() // instance of class CalculModel
-    private var _displayNumber: String = ""
+//    private var _displayNumber: String = ""
     private let manager = ViewControllerManager()
     
     // MARK: XCTest getter
-    
-    var getDisplayNumbers: String {
-        return _displayNumber
-    }
 
     // MARK: - Action
     
-    var needToClear: Bool {
-        // refactor check if operator is present at the end of calcul
-
-        if calcul.getOperator == "" && calcul.isEnded {
-            return true
-        } else {
-            return false
-        }
-    }
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
         manager.isTapNumber = true
         manager.sender = sender
-        
-        
-        if needToClear {
-            calcul.clear()
-        }
-        calcul.isEnded = false
-        _displayNumber = _displayNumber + String(sender.tag)
-        calcul.addCurrentNumber(sender.tag)
-        updateDisplay()
-
     }
     
     @IBAction func plus() {
