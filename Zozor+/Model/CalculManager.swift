@@ -63,7 +63,13 @@ class CalculManager {
         if isDecimal {
             guard let currentNumber = _currentNumber else { return }
             _previousNumber = currentNumber + Double(number) / 10
+             // ajouter une variable decimal number
+
+            _previousNumber = 0
+            
+            return
         }
+        
         if !_addTenOrSo {
             getSetCurrentNumber = Double(number)
             _addTenOrSo = true

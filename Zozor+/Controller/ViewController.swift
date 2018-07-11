@@ -21,6 +21,7 @@ class ViewController: UIViewController {
     
     private let calcul = CalculManager() // instance of class CalculModel
     private var _displayNumber: String = ""
+    private let manager = ViewControllerManager()
     
     // MARK: XCTest getter
     
@@ -32,7 +33,7 @@ class ViewController: UIViewController {
     
     var needToClear: Bool {
         // refactor check if operator is present at the end of calcul
-        
+
         if calcul.getOperator == "" && calcul.isEnded {
             return true
         } else {
@@ -42,6 +43,9 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in clavier
+        manager.isTapNumber = true
+        manager.sender = sender
+        
         
         if needToClear {
             calcul.clear()

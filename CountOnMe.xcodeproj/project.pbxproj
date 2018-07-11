@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3794480620F60BB6002DEB69 /* ViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3794480520F60BB6002DEB69 /* ViewControllerManager.swift */; };
 		37AFCB5E20E22F3900252A7A /* CountOnMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFCB5D20E22F3900252A7A /* CountOnMeTests.swift */; };
 		37AFCB6A20E2309700252A7A /* CalculManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFCB6920E2309700252A7A /* CalculManager.swift */; };
 		C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DADC1D7581BB00477020 /* AppDelegate.swift */; };
@@ -27,6 +28,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		3794480520F60BB6002DEB69 /* ViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerManager.swift; sourceTree = "<group>"; };
 		37AFCB5B20E22F3900252A7A /* CountOnMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37AFCB5D20E22F3900252A7A /* CountOnMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountOnMeTests.swift; sourceTree = "<group>"; };
 		37AFCB5F20E22F3900252A7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -71,6 +73,7 @@
 			isa = PBXGroup;
 			children = (
 				C926DADE1D7581BB00477020 /* ViewController.swift */,
+				3794480520F60BB6002DEB69 /* ViewControllerManager.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -246,6 +249,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3794480620F60BB6002DEB69 /* ViewControllerManager.swift in Sources */,
 				37AFCB6A20E2309700252A7A /* CalculManager.swift in Sources */,
 				C926DADF1D7581BB00477020 /* ViewController.swift in Sources */,
 				C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */,
