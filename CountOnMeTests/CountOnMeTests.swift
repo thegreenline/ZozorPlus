@@ -19,6 +19,65 @@ class CountOnMeTests: XCTestCase {
         test = CalculManager()
     }
     
+    func calculSingleNumbers(nb1: Int, nb2: Int, signe: String) -> Int {
+        let _nb1 = String(nb1)
+        let _nb2 = String(nb2)
+        let ope = signe
+        
+        test.addOperator(signe: "+")
+        test.addStringNumbers(number: _nb1)
+        test.addOperator(signe: ope)
+        test.addStringNumbers(number: _nb2)
+        
+        var result = 0
+        switch signe {
+        case "+": result = nb1 + nb2
+        case "-": result = nb1 - nb2
+        case "/":
+            if nb2 != 0 {
+                result = nb1 / nb2
+            } else {
+                result = nb1
+            }
+        case "*": result = nb1 * nb2
+        default: break
+        }
+        return result
+    }
+    
+    func addComplexNumbers(from fromNum: Int, to toNum: Int) -> Int {
+        var current = 0
+        for number in fromNum...toNum {
+            test.addStringNumbers(number: String(number))
+            current = current * 10 + number
+        }
+        return current
+    }
+    
+    func caclulComplexNumbers(toNb1: Int, toNb2: Int, signe: String) -> Int {
+        test.addOperator(signe: "+")
+        let _nb1 = addComplexNumbers(from: 1, to: toNb1)
+        test.addOperator(signe: signe)
+        let _nb2 = addComplexNumbers(from: 1, to: toNb2)
+        
+        var result = 0
+        switch signe {
+        case "+": result = _nb1 + _nb2
+        case "-": result = _nb1 - _nb2
+        case "/": result = _nb1 / _nb2
+        case "*": result = _nb1 * _nb2
+        default: break
+        }
+        return result
+    }
+    
+    
+    func testLeTest() {
+        let testg = calculSingleNumbers(nb1: 2, nb2: 2, signe: "/")
+        
+        XCTAssertEqual(test.getTotal, testg)
+    }
+    
     func testClass() {
         XCTAssertNotNil(test)
     }
@@ -37,55 +96,38 @@ class CountOnMeTests: XCTestCase {
         XCTAssertEqual(String(nb1), test.getStringNumbers.last)
     }
     
-    func testTotalPlus() {
-        // add comment
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 3)
-    }
-    func testTotalMinus() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "-")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, -1)
-    }
-    func testTotalMulti() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "1")
-        test.addOperator(signe: "*")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 2)
-    }
-    func testTotalDivide() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "/")
-        test.addStringNumbers(number: "2")
-        
-        XCTAssertEqual(test.getTotal, 1)
+    func testAllOperatoInComplex() {
+        let tab = ["+", "-", "/", "*"]
+
+        for signe in tab {
+            test.clear()
+            let current = caclulComplexNumbers(toNb1: 1, toNb2: 8, signe: signe)
+            XCTAssertEqual(test.getTotal, current)
+        }
     }
     
-    func testTotalDefault() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "n")
-        test.addStringNumbers(number: "2")
+    func testAllOperatorsInSimpleOperation() {
+        let tab = ["+", "-", "/", "*"]
         
-        XCTAssertEqual(test.getTotal, 2)
+        for signe in tab {
+            test.clear()
+            let current = calculSingleNumbers(nb1: 2, nb2: 4, signe: signe)
+            XCTAssertEqual(test.getTotal, current)
+        }
+    }
+    
+    func testCantDevide0() {
+        let targetNb = 2
+        let current = calculSingleNumbers(nb1: targetNb, nb2: 0, signe: "/")
+        
+        XCTAssertEqual(test.getTotal, targetNb)
+        XCTAssertEqual(current, targetNb)
     }
     
     func testClear() {
-        test.addOperator(signe: "+")
-        test.addStringNumbers(number: "2")
-        test.addOperator(signe: "n")
-        test.addStringNumbers(number: "2")
+        let current = calculSingleNumbers(nb1: 2, nb2: 4, signe: "*")
         
+        XCTAssertEqual(test.getTotal, current)
         test.clear()
         
         XCTAssertEqual(test.getStringNumbers, [""])
