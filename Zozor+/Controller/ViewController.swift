@@ -20,137 +20,62 @@ class ViewController: UIViewController {
     @IBOutlet var numberButtons: [UIButton]!
     
     private let calcul = CalculManager() // instance of class CalculModel
-//    private var _displayNumber: String = ""
-    private let manager = ViewControllerManager()
+    private let manager = ViewControllerManager() // instance of VCManager
     
-    // MARK: XCTest getter
-
     // MARK: - Action
     
-    
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        // spot number in clavier
-        manager.isTapNumber = true
-        manager.sender = sender
+        // spot number in keyPad
+        manager.senderTag = sender.tag
+        manager.keypadBtn()
     }
     
     @IBAction func plus() {
-        // action when plus btn is presed
-        
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "+")
-                _displayNumber = String(calcul.returnTotal) + "+"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-        
-        calcul.addOperator(signe: "+")
-        _displayNumber = _displayNumber + "+"
-        calcul.updateResult()
-        updateDisplay()
+        // btn plus
+        manager.plusBtn()
     }
     
     @IBAction func minus() {
-        // action when minus btn is presed
-
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "-")
-                _displayNumber = String(calcul.returnTotal) + "-"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-        
-        calcul.addOperator(signe: "-")
-        _displayNumber = _displayNumber + "-"
-        calcul.updateResult()
-        updateDisplay()
+        // btn minus
+        manager.minusBtn()
     }
     
     @IBAction func Multiply() {
-        // action when multyply btn is presed
-
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "*")
-                _displayNumber = String(calcul.returnTotal) + "*"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-
-        calcul.addOperator(signe: "*")
-        _displayNumber = _displayNumber + "x"
-        calcul.updateResult()
-        updateDisplay()
+        // btn multiply
+        manager.multiplyBtn()
     }
     
     @IBAction func divide() {
-        // action when divide btn is presed
-
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "/")
-                _displayNumber = String(calcul.returnTotal) + "/"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-
-        calcul.addOperator(signe: "/")
-        _displayNumber = _displayNumber + "/"
-        calcul.updateResult()
-        updateDisplay()
+        // btn divide
+        manager.divideBtn()
     }
     
     @IBAction func addComma() {
-         calcul.isDecimal = true
-        _displayNumber = _displayNumber + "."
-        updateDisplay()
+        // btn comma
+         manager.addCommaBtn()
     }
     
     @IBAction func equal() {
-        // action when equal btn is presed
-
-        guard !calcul.isEnded else { return }
-        calcul.isEnded = true
-            displayTotal()
-            _displayNumber.removeAll()
-//            calcul.isEnded = true
-        calcul.addOperator(signe: "")
+        // btn equal
+        manager.equalBtn()
+//        displayTotal() // est ce pertinent ?
     }
     
     @IBAction func AC() {
-        // action when reset btn is presed
-        
-        calcul.clear()
-        _displayNumber = "0"
-        updateDisplay()
-        _displayNumber.removeAll()
-        calcul.isEnded = false
+        // btn reset
+        manager.acBtn()
     }
     
     private var isCorrect: Bool {
         // check if all is ok
-        
+        // FIXME: repenser la fonction pour l'integer au manager !!!!!!!!!!
         if calcul.checkFirstStep {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
         }
-        else if _displayNumber == "" && calcul.isFirstStep {
+        else if manager._displayNumber == "" && calcul.isFirstStep {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -177,7 +102,7 @@ class ViewController: UIViewController {
         // update textView with new content
         
         var text: String
-        text = "\(_displayNumber)"
+        text = "\(manager._displayNumber)"
         textView.text = text
     }
     
