@@ -26,62 +26,70 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in keyPad
-        manager.senderTag = sender.tag
-        manager.keypadBtn()
+//        manager.senderTag = sender.tag
+        manager.keypadBtn(senderTag: sender.tag)
+        updateDisplay()
     }
     
     @IBAction func plus() {
         // btn plus
         manager.plusBtn()
+        updateDisplay()
     }
     
     @IBAction func minus() {
         // btn minus
         manager.minusBtn()
+        updateDisplay()
     }
     
     @IBAction func Multiply() {
         // btn multiply
         manager.multiplyBtn()
+        updateDisplay()
     }
     
     @IBAction func divide() {
         // btn divide
         manager.divideBtn()
+        updateDisplay()
     }
     
     @IBAction func addComma() {
         // btn comma
          manager.addCommaBtn()
+        updateDisplay()
     }
     
     @IBAction func equal() {
         // btn equal
         manager.equalBtn()
-//        displayTotal() // est ce pertinent ?
+        updateDisplay()
     }
     
     @IBAction func AC() {
         // btn reset
         manager.acBtn()
+        updateDisplay()
     }
     
-    private var isCorrect: Bool {
+    private func isCorrect() -> Bool {
         // check if all is ok
         // FIXME: repenser la fonction pour l'integer au manager !!!!!!!!!!
-        if calcul.checkFirstStep {
+        print("Code erreur : \(manager.getCodeErreur)")
+        if manager.getCodeErreur == 1 {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
         }
-        else if manager._displayNumber == "" && calcul.isFirstStep {
+        else if manager.getCodeErreur == 2 {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
             return false
         }
-        else if calcul.checkIfDiviseWithZero {
+        else if manager.getCodeErreur == 3 {
             let alertVC = UIAlertController(title: "Zero !", message: "Impossible de diviser par 0 !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
@@ -90,20 +98,11 @@ class ViewController: UIViewController {
         return true
     }
     
-    private func displayTotal() {
-        // display total on screen
-
-        guard isCorrect else { return }
-        let total = calcul.getTotal
-        textView.text = textView.text + " = \(total)"
-    }
-    
     private func updateDisplay() {
         // update textView with new content
-        
-        var text: String
-        text = "\(manager._displayNumber)"
-        textView.text = text
+        if isCorrect() {
+        textView.text = manager.textView
+        }
     }
     
 }

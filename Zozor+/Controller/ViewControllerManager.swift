@@ -10,37 +10,27 @@ import UIKit
 
 class ViewControllerManager {
     
-    var isTapNumber = false
-    var isTapPlus = false
-    var isTapMinus = false
-    var isTapMultiply = false
-    var isTapDivide = false
-    var isTapAddComma = false
-    var isTapEqual = false
-    var isTapAC = false
-    
-    private var isCorrect: Bool {
-        print("isCorrect")
-        return true
-    }
-    
-    var senderTag: Int?
     private let calcul = CalculManager() // instance of class CalculModel
     var _displayNumber: String = ""
     var textView = ""
-    private func displayTotal() {
-        // display total on screen
-        
-        guard isCorrect else { return }
-        let total = calcul.getTotal
-        print(textView + " = \(total)")
+    private var _codeErreur = 0
+    
+    var getCalculInstance: CalculManager {
+        return calcul
     }
-    private func updateDisplay() {
-        print("Need to create func or limk for update display !!!")
-        var text: String
-        text = "\(_displayNumber)"
-        textView = text
-        print(textView)
+    
+    var getCodeErreur: Int {
+        return _codeErreur
+    }
+    private var isCorrect: Bool {
+        // FIXME: need to reel check here, le lier au VC !?
+        
+        if calcul.checkFirstStep { _codeErreur = 1; return false }
+        else if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; return false }
+        else if calcul.checkIfDiviseWithZero { _codeErreur = 3; return false }
+        print("Code erreur : \(_codeErreur)")
+        _codeErreur = 0
+        return true
     }
     
     var needToClear: Bool {
@@ -53,21 +43,22 @@ class ViewControllerManager {
         }
     }
     
-    func keypadBtn() {
+    func keypadBtn(senderTag: Int) {
+        _codeErreur = 0
         if needToClear {
             calcul.clear()
         }
         calcul.isEnded = false
-        _displayNumber = _displayNumber + String(senderTag!)
-        calcul.addCurrentNumber(senderTag!)
+        _displayNumber = _displayNumber + String(senderTag)
+        calcul.addCurrentNumber(senderTag)
         updateDisplay() //
-        senderTag = nil
+        print("resultat au keypad \(calcul.returnTotal)")
     }
     
     func plusBtn() {
         // action when plus btn is presed
-        
-        guard isCorrect, !calcul.isEnded else { // comment lier is correct ???
+        // FIXME: comment lier le isCorrect ??
+        guard isCorrect, !calcul.isEnded else {
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "+")
@@ -76,12 +67,20 @@ class ViewControllerManager {
             }
             return
         }
-        // do start new calcul
+//      ////////   do start new calcul
+        if calcul.isFirstStep {
+            calcul.addOperator(signe: "+")
+            _displayNumber = _displayNumber + "+"
+            updateDisplay() //
+            
+        } else {
+            calcul.updateResult()
+            calcul.addOperator(signe: "+")
+            _displayNumber = _displayNumber + "+"
+            updateDisplay() //
+        }
+        print("resultat au PLUS \(calcul.returnTotal)")
         
-        calcul.addOperator(signe: "+")
-        _displayNumber = _displayNumber + "+"
-        calcul.updateResult()
-        updateDisplay() //
     }
     func minusBtn() {
         // action when minus btn is presed
@@ -95,12 +94,22 @@ class ViewControllerManager {
             }
             return
         }
-        // do start new calcul
+        /////////// do start new calcul
         
-        calcul.addOperator(signe: "-")
-        _displayNumber = _displayNumber + "-"
-        calcul.updateResult()
-        updateDisplay()
+        if calcul.isFirstStep {
+            calcul.addOperator(signe: "-")
+            _displayNumber = _displayNumber + "-"
+            updateDisplay() //
+            
+        } else {
+            calcul.updateResult()
+            calcul.addOperator(signe: "-")
+            _displayNumber = _displayNumber + "-"
+            updateDisplay() //
+        }
+        
+        print("resultat au MOINS \(calcul.returnTotal)")
+        
     }
     func multiplyBtn() {
         // action when multyply btn is presed
@@ -150,18 +159,42 @@ class ViewControllerManager {
         
         guard !calcul.isEnded else { return }
         calcul.isEnded = true
-        displayTotal() ////////////////////-0-//
+        calculAndDisplayTotal() ////////////////////-0-//
         _displayNumber.removeAll()
         //            calcul.isEnded = true
         calcul.addOperator(signe: "")
+        print("Get total = \(calcul.returnTotal)")
+        // FIXME: remettre a true isFirstStep ????
+        //        calcul.isFirstStep = true
+        
     }
+    
     func acBtn() {
         // action when reset btn is presed
-        
+        _codeErreur = 0
         calcul.clear()
         _displayNumber = "0"
         updateDisplay()
         _displayNumber.removeAll()
         calcul.isEnded = false
+    }
+    
+    private func calculAndDisplayTotal() {
+        // display total on screen
+        
+        guard isCorrect else { return }
+        //        let total = calcul.getTotal
+        calcul.updateResult()
+        let total = calcul.returnTotal /////////////////-0-
+        textView = textView + " = \(total)"
+        print("resultat display : " + textView)
+    }
+    
+    private func updateDisplay() {
+//        print("Need to create func or limk for update display !!!")
+        var text: String
+        text = "\(_displayNumber)"
+        textView = text
+        print(textView)
     }
 }

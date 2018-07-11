@@ -20,7 +20,9 @@ class CalculManager {
     
     // MARK: Getter
 
-    
+    var getPreviousNumber: Double {
+        return _previousNumber
+    }
     var getOperator: String {
         // return current operato
         return _operators
@@ -59,18 +61,20 @@ class CalculManager {
     
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
-        
+        if isFirstStep {
+            _previousNumber = Double(number)
+            isFirstStep = false
+            return
+        }
         if isDecimal {
             guard let currentNumber = _currentNumber else { return }
             _previousNumber = currentNumber + Double(number) / 10
              // ajouter une variable decimal number
-
-            _previousNumber = 0
-            
+            _previousNumber = 0 // interet ?????
             return
         }
-        
         if !_addTenOrSo {
+            // FIXME: remettre _currentnumber partout ???
             getSetCurrentNumber = Double(number)
             _addTenOrSo = true
         } else {
@@ -176,7 +180,7 @@ class CalculManager {
 //                _currentNumber = _previousNumber// !!
 //                _total = _previousNumber + _currentNumber!// !!!
 //            } else {
-                if _firstStep {
+                if isFirstStep {
                     calculFirstStep(currentNumber)
                 } else {
                     if isDecimal {
@@ -205,7 +209,7 @@ class CalculManager {
 //                _currentNumber = _total //
 //                _total = _currentNumber! - _previousNumber//
 //            } else {
-                if _firstStep {
+                if isFirstStep {
                     calculFirstStep(currentNumber)
                 } else {
                     if isDecimal {
@@ -219,8 +223,9 @@ class CalculManager {
                     } else {
                         print("is not decimal")
                         _total = _previousNumber - currentNumber
-                        getSetCurrentNumber = 0
                         _previousNumber = _total
+
+                        getSetCurrentNumber = 0
                     }
 //                }
                 
@@ -230,7 +235,7 @@ class CalculManager {
 //                _previousNumber = _total
 //            }
         case "/":
-            if _firstStep {
+            if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber / currentNumber
@@ -238,7 +243,7 @@ class CalculManager {
                 _previousNumber = _total
             }
         case "*":
-            if _firstStep {
+            if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
                 _total = _previousNumber * currentNumber

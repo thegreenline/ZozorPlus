@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3794480620F60BB6002DEB69 /* ViewControllerManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3794480520F60BB6002DEB69 /* ViewControllerManager.swift */; };
+		3794480A20F640E7002DEB69 /* ManagerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3794480920F640E7002DEB69 /* ManagerTests.swift */; };
 		37AFCB5E20E22F3900252A7A /* CountOnMeTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFCB5D20E22F3900252A7A /* CountOnMeTests.swift */; };
 		37AFCB6A20E2309700252A7A /* CalculManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37AFCB6920E2309700252A7A /* CalculManager.swift */; };
 		C926DADD1D7581BB00477020 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = C926DADC1D7581BB00477020 /* AppDelegate.swift */; };
@@ -29,6 +30,7 @@
 
 /* Begin PBXFileReference section */
 		3794480520F60BB6002DEB69 /* ViewControllerManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewControllerManager.swift; sourceTree = "<group>"; };
+		3794480920F640E7002DEB69 /* ManagerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ManagerTests.swift; sourceTree = "<group>"; };
 		37AFCB5B20E22F3900252A7A /* CountOnMeTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CountOnMeTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		37AFCB5D20E22F3900252A7A /* CountOnMeTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CountOnMeTests.swift; sourceTree = "<group>"; };
 		37AFCB5F20E22F3900252A7A /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -65,6 +67,7 @@
 			children = (
 				37AFCB5D20E22F3900252A7A /* CountOnMeTests.swift */,
 				37AFCB5F20E22F3900252A7A /* Info.plist */,
+				3794480920F640E7002DEB69 /* ManagerTests.swift */,
 			);
 			path = CountOnMeTests;
 			sourceTree = "<group>";
@@ -242,6 +245,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				37AFCB5E20E22F3900252A7A /* CountOnMeTests.swift in Sources */,
+				3794480A20F640E7002DEB69 /* ManagerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
