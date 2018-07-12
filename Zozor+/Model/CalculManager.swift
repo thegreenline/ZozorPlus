@@ -71,7 +71,6 @@ class CalculManager {
             guard let currentNumber = _currentNumber else { return }
             getSetCurrentNumber = currentNumber + Double(number) / 10
             // ajouter une variable decimal number
-//            _previousNumber = 0 // interet ?????
             return
         }
         if !_addTenOrSo {
@@ -175,7 +174,6 @@ class CalculManager {
         guard let currentNumber = _currentNumber else { return }
         let signe = _operators
         switch signe {
-        // FIXME: why 1 + 0.5 = 0.5 ??
         case "+":
             if isFirstStep {
                 calculFirstStep(currentNumber)
@@ -187,17 +185,14 @@ class CalculManager {
                     _previousNumber = _total
                     
                     getSetCurrentNumber = 0
-                    
-                    //                        isDecimal = false
+//                        isDecimal = false
                 } else {
                     print("is not decimal")
                     _total = _previousNumber + currentNumber
-                    
-                    getSetCurrentNumber = 0
                     _previousNumber = _total
+                    getSetCurrentNumber = 0
                 }
             }
-//                FIXME: why 1 - 0.5 = -0.5 ??
         case "-":
             if isFirstStep {
                 calculFirstStep(currentNumber)
@@ -209,13 +204,11 @@ class CalculManager {
                     _previousNumber = _total
                     
                     getSetCurrentNumber = 0
-                    
 //                        isDecimal = false
                 } else {
                     print("is not decimal")
                     _total = _previousNumber - currentNumber
                     _previousNumber = _total
-                    
                     getSetCurrentNumber = 0
                 }
             }
@@ -224,17 +217,39 @@ class CalculManager {
             if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
-                _total = _previousNumber / currentNumber
-                getSetCurrentNumber = 0
-                _previousNumber = _total
+                if isDecimal {
+                    print("is decimal")
+                    
+                    _total = _total / _previousNumber // !!
+                    _previousNumber = _total
+                    
+                    getSetCurrentNumber = 0
+                    //                        isDecimal = false
+                } else {
+                    print("is not decimal")
+                    _total = _previousNumber / currentNumber
+                    _previousNumber = _total
+                    getSetCurrentNumber = 0
+                }
             }
         case "*":
             if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
-                _total = _previousNumber * currentNumber
-                getSetCurrentNumber = 0
-                _previousNumber = _total
+                if isDecimal {
+                    print("is decimal")
+                    
+                    _total = _total * _previousNumber // !!
+                    _previousNumber = _total
+                    
+                    getSetCurrentNumber = 0
+                    //                        isDecimal = false
+                } else {
+                    print("is not decimal")
+                    _total = _previousNumber * currentNumber
+                    _previousNumber = _total
+                    getSetCurrentNumber = 0
+                }
             }
         default:
             break

@@ -217,7 +217,7 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 0)
     }
     
-    func testDecimalSImpleCalcul() {
+    func testOneDecimalSImpleCalculPlus() {
         let nb1 = 1
         let nb2 = 0
         let nb3 = 5
@@ -237,7 +237,67 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 0)
     }
     
-    func testDecimalMediumCalcul() {
+    func testOneDecimalSImpleCalculMinus() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.minusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) - Double(0.5)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    func testOneDecimalSImpleCalculDivide() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) / Double(0.5)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    func testOneDecimalSImpleCalculMultiply() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) * Double(0.5)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    func testOneDecimalMediumCalculOnlyPlus() {
         let nb1 = 1
         let nb2 = 0
         let nb3 = 5
@@ -251,16 +311,36 @@ class ManagerTests: XCTestCase {
         manager.keypadBtn(senderTag: nb3)
         manager.plusBtn()
         manager.keypadBtn(senderTag: nb4)
-        
+        manager.minusBtn()
+        manager.keypadBtn(senderTag: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) + Double(0.5) + Double(nb4)
+        result = Double(nb1) + Double(0.5) + Double(nb4) - Double(nb3)
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == 0)
     }
     
-    
-    
+    func testTwoDecimalSImpleCalcul() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) + Double(0.55)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+
 }
