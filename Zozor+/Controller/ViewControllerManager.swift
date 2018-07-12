@@ -26,7 +26,7 @@ class ViewControllerManager {
         // FIXME: need to reel check here, le lier au VC !?
         
         if calcul.checkFirstStep { _codeErreur = 1; return false }
-        else if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; return false }
+         if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; return false }
         else if calcul.checkIfDiviseWithZero { _codeErreur = 3; return false }
         print("Code erreur : \(_codeErreur)")
         _codeErreur = 0
@@ -59,6 +59,8 @@ class ViewControllerManager {
         // action when plus btn is presed
         // FIXME: comment lier le isCorrect ??
         guard isCorrect, !calcul.isEnded else {
+            // FIXME: voir ou doit etre remis a faux la valeur isDecimal, je pense aue ici c'est bien
+            calcul.isDecimal = false
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "+")
@@ -69,10 +71,11 @@ class ViewControllerManager {
         }
 //      ////////   do start new calcul
         if calcul.isFirstStep {
+//            calcul.updateResult()
             calcul.addOperator(signe: "+")
             _displayNumber = _displayNumber + "+"
             updateDisplay() //
-            
+            calcul.isFirstStep = false
         } else {
             calcul.updateResult()
             calcul.addOperator(signe: "+")
@@ -86,6 +89,8 @@ class ViewControllerManager {
         // action when minus btn is presed
         
         guard isCorrect, !calcul.isEnded else {
+            // FIXME: reflexion idem aue pour le + concenrnant le isDecimal
+            calcul.isDecimal = false
             if calcul.isEnded {
                 // do take last result for new operation
                 calcul.addOperator(signe: "-")
@@ -100,7 +105,7 @@ class ViewControllerManager {
             calcul.addOperator(signe: "-")
             _displayNumber = _displayNumber + "-"
             updateDisplay() //
-            
+            calcul.isFirstStep = false
         } else {
             calcul.updateResult()
             calcul.addOperator(signe: "-")
@@ -125,10 +130,17 @@ class ViewControllerManager {
         }
         // do start new calcul
         
-        calcul.addOperator(signe: "*")
-        _displayNumber = _displayNumber + "x"
-        calcul.updateResult()
-        updateDisplay()
+        if calcul.isFirstStep {
+            calcul.addOperator(signe: "*")
+            _displayNumber = _displayNumber + "*"
+            updateDisplay() //
+            calcul.isFirstStep = false
+        } else {
+            calcul.updateResult()
+            calcul.addOperator(signe: "*")
+            _displayNumber = _displayNumber + "*"
+            updateDisplay() //
+        }
     }
     func divideBtn() {
         // action when divide btn is presed
@@ -144,10 +156,17 @@ class ViewControllerManager {
         }
         // do start new calcul
         
-        calcul.addOperator(signe: "/")
-        _displayNumber = _displayNumber + "/"
-        calcul.updateResult()
-        updateDisplay()
+        if calcul.isFirstStep {
+            calcul.addOperator(signe: "/")
+            _displayNumber = _displayNumber + "/"
+            updateDisplay() //
+            calcul.isFirstStep = false
+        } else {
+            calcul.updateResult()
+            calcul.addOperator(signe: "/")
+            _displayNumber = _displayNumber + "/"
+            updateDisplay() //
+        }
     }
     func addCommaBtn() {
         calcul.isDecimal = true

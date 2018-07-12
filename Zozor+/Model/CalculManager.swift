@@ -19,7 +19,7 @@ class CalculManager {
     private var _total: Double = 0
     
     // MARK: Getter
-
+    
     var getPreviousNumber: Double {
         return _previousNumber
     }
@@ -44,7 +44,7 @@ class CalculManager {
     
     var checkFirstStep: Bool {
         // return check if is the first step of calcul
-       return didStartNewCalc()
+        return didStartNewCalc()
     }
     
     var checkIfDiviseWithZero: Bool {
@@ -62,14 +62,15 @@ class CalculManager {
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
         if isFirstStep {
-            _previousNumber = Double(number)
-            isFirstStep = false
+            
+            _previousNumber = _previousNumber * 10 + Double(number)
+            //            isFirstStep = false
             return
         }
         if isDecimal {
             guard let currentNumber = _currentNumber else { return }
             _previousNumber = currentNumber + Double(number) / 10
-             // ajouter une variable decimal number
+            // ajouter une variable decimal number
             _previousNumber = 0 // interet ?????
             return
         }
@@ -87,7 +88,7 @@ class CalculManager {
     }
     
     // MARK: getter setter
-
+    
     var isFirstStep: Bool {
         // return bool of the fist step and attibut newvalue
         get {
@@ -125,7 +126,7 @@ class CalculManager {
     }
     
     // MARK: Methode
-
+    
     func clear() {
         // reset
         _operators = ""
@@ -135,11 +136,12 @@ class CalculManager {
         _firstStep = true
         _addTenOrSo = false
         _calculEnded = false
+        _isDecimal = false
     }
     
     private func canDiviseWithZero() -> Bool {
         // check if try to divise with 0
-
+        
         var isZero = false
         if _operators == "/" && _currentNumber == 0 {
             isZero = true
@@ -149,9 +151,9 @@ class CalculManager {
     
     private func didStartNewCalc() -> Bool {
         // check if is the first step of calcul
-
+        
         var returnValue: Bool
-        if _operators == "" && isFirstStep && _currentNumber == nil {
+        if _operators == "" && isFirstStep && _currentNumber == nil && _previousNumber == 0 {
             returnValue = true
         } else {
             returnValue = false
@@ -175,66 +177,50 @@ class CalculManager {
         switch signe {
         // FIXME: why 1 + 0.5 = 0.5 ??
         case "+":
-            // FIXME: enchainement calcul + voir chaque //
-//            if isEnded {// !!
-//                _currentNumber = _previousNumber// !!
-//                _total = _previousNumber + _currentNumber!// !!!
-//            } else {
-                if isFirstStep {
-                    calculFirstStep(currentNumber)
+            if isFirstStep {
+                calculFirstStep(currentNumber)
+            } else {
+                if isDecimal {
+                    print("is decimal")
+                    
+                    _total = _total + _previousNumber // !!
+                    _previousNumber = _total
+                    
+                    getSetCurrentNumber = 0
+                    
+                    //                        isDecimal = false
                 } else {
-                    if isDecimal {
-                        print("is decimal")
-                        
-                        _total = _total + _previousNumber // !!
-                        _previousNumber = _total
-                        
-                        getSetCurrentNumber = 0
-                        
-                        isDecimal = false
-                    } else {
-                        print("is not decimal")
-                        _total = _previousNumber + currentNumber
-                        
-                        getSetCurrentNumber = 0
-                        _previousNumber = _total
-                    }
-//                }
-                
+                    print("is not decimal")
+                    _total = _previousNumber + currentNumber
+                    
+                    getSetCurrentNumber = 0
+                    _previousNumber = _total
+                }
             }
 //                FIXME: why 1 - 0.5 = -0.5 ??
         case "-":
-            // FIXME: enchainement clacul - voir chaque //
-//            if isEnded {//
-//                _currentNumber = _total //
-//                _total = _currentNumber! - _previousNumber//
-//            } else {
-                if isFirstStep {
-                    calculFirstStep(currentNumber)
+            if isFirstStep {
+                calculFirstStep(currentNumber)
+            } else {
+                if isDecimal {
+                    print("is decimal")
+                    
+                    _total = _total - _previousNumber // !!
+                    _previousNumber = _total
+                    
+                    getSetCurrentNumber = 0
+                    
+//                        isDecimal = false
                 } else {
-                    if isDecimal {
-                        print("is decimal")
-                        
-                        _total = _total - _previousNumber // !!
-                        _previousNumber = _total
-                        
-                        getSetCurrentNumber = 0
-                        isDecimal = false
-                    } else {
-                        print("is not decimal")
-                        _total = _previousNumber - currentNumber
-                        _previousNumber = _total
-
-                        getSetCurrentNumber = 0
-                    }
-//                }
-                
+                    print("is not decimal")
+                    _total = _previousNumber - currentNumber
+                    _previousNumber = _total
+                    
+                    getSetCurrentNumber = 0
+                }
             }
-//                _total = _previousNumber - currentNumber
-//                getSetCurrentNumber = 0
-//                _previousNumber = _total
-//            }
         case "/":
+// FIXME: mettrre a jour la verificatio nde la division par zero !!
             if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
