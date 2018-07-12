@@ -309,6 +309,7 @@ class ManagerTests: XCTestCase {
         manager.keypadBtn(senderTag: nb2)
         manager.addCommaBtn()
         manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb3)
         manager.plusBtn()
         manager.keypadBtn(senderTag: nb4)
         manager.minusBtn()
@@ -316,7 +317,7 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) + Double(0.5) + Double(nb4) - Double(nb3)
+        result = Double(nb1) + Double(0.55) + Double(nb4) - Double(nb3)
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == 0)
@@ -342,5 +343,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == 0)
     }
+    
 
 }

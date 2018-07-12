@@ -61,15 +61,20 @@ class CalculManager {
     
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
+        // FIXME: pourquoi le calcul se fait mal avce un decimal autre chose que 0 ??
         if isFirstStep {
-            
             _previousNumber = _previousNumber * 10 + Double(number)
             //            isFirstStep = false
             return
         }
         if isDecimal {
             guard let currentNumber = _currentNumber else { return }
-            getSetCurrentNumber = currentNumber + Double(number) / 10
+            if !_addTenOrSo {
+                getSetCurrentNumber = currentNumber + Double(number) / 10
+                _addTenOrSo = true
+            } else {
+                getSetCurrentNumber = currentNumber / 10 + Double(number) / 10
+            }
             // ajouter une variable decimal number
             return
         }
@@ -79,7 +84,6 @@ class CalculManager {
             _addTenOrSo = true
         } else {
             guard let currentNumber = _currentNumber else {
-                _currentNumber = nil
                 return
             }
             getSetCurrentNumber = currentNumber * 10 + Double(number)
@@ -180,10 +184,9 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    
+
                     _total = _previousNumber + currentNumber // !!
                     _previousNumber = _total
-                    
                     getSetCurrentNumber = 0
 //                        isDecimal = false
                 } else {
@@ -200,9 +203,9 @@ class CalculManager {
                 if isDecimal {
                     print("is decimal")
                     
-                    _total = _total - _previousNumber // !!
+//                    _total = _total - _previousNumber // !!
+                    _total = _previousNumber - currentNumber
                     _previousNumber = _total
-                    
                     getSetCurrentNumber = 0
 //                        isDecimal = false
                 } else {
@@ -220,9 +223,9 @@ class CalculManager {
                 if isDecimal {
                     print("is decimal")
                     
-                    _total = _total / _previousNumber // !!
+//                    _total = _total / _previousNumber // !!
+                    _total = _previousNumber / currentNumber
                     _previousNumber = _total
-                    
                     getSetCurrentNumber = 0
                     //                        isDecimal = false
                 } else {
@@ -239,9 +242,9 @@ class CalculManager {
                 if isDecimal {
                     print("is decimal")
                     
-                    _total = _total * _previousNumber // !!
+//                    _total = _total * _previousNumber // !!
+                    _total = _previousNumber * currentNumber
                     _previousNumber = _total
-                    
                     getSetCurrentNumber = 0
                     //                        isDecimal = false
                 } else {

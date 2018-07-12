@@ -112,6 +112,7 @@ class ViewControllerManager {
             calcul.addOperator(signe: "-")
             _displayNumber = _displayNumber + "-"
             updateDisplay() //
+            calcul.isDecimal = false ///
         }
         
         print("resultat au MOINS \(calcul.returnTotal)")
@@ -141,6 +142,7 @@ class ViewControllerManager {
             calcul.addOperator(signe: "*")
             _displayNumber = _displayNumber + "*"
             updateDisplay() //
+            calcul.isDecimal = false ///
         }
     }
     func divideBtn() {
@@ -167,6 +169,7 @@ class ViewControllerManager {
             calcul.addOperator(signe: "/")
             _displayNumber = _displayNumber + "/"
             updateDisplay() //
+            calcul.isDecimal = false ///
         }
     }
     func addCommaBtn() {
