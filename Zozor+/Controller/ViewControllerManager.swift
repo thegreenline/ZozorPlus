@@ -66,12 +66,12 @@ class ViewControllerManager {
                 calcul.addOperator(signe: "+")
                 _displayNumber = String(calcul.returnTotal) + "+"
                 updateDisplay() //
+//                calcul.isDecimal = false
             }
             return
         }
 //      ////////   do start new calcul
         if calcul.isFirstStep {
-//            calcul.updateResult()
             calcul.addOperator(signe: "+")
             _displayNumber = _displayNumber + "+"
             updateDisplay() //
@@ -81,9 +81,10 @@ class ViewControllerManager {
             calcul.addOperator(signe: "+")
             _displayNumber = _displayNumber + "+"
             updateDisplay() //
+            calcul.isDecimal = false //////////////////// resoluton des decimals 1 chiffre
         }
         print("resultat au PLUS \(calcul.returnTotal)")
-        
+//        calcul.isDecimal = false
     }
     func minusBtn() {
         // action when minus btn is presed
@@ -178,6 +179,7 @@ class ViewControllerManager {
         
         guard !calcul.isEnded else { return }
         calcul.isEnded = true
+        calcul.isDecimal = false
         calculAndDisplayTotal() ////////////////////-0-//
         _displayNumber.removeAll()
         //            calcul.isEnded = true

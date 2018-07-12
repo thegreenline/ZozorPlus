@@ -69,9 +69,9 @@ class CalculManager {
         }
         if isDecimal {
             guard let currentNumber = _currentNumber else { return }
-            _previousNumber = currentNumber + Double(number) / 10
+            getSetCurrentNumber = currentNumber + Double(number) / 10
             // ajouter une variable decimal number
-            _previousNumber = 0 // interet ?????
+//            _previousNumber = 0 // interet ?????
             return
         }
         if !_addTenOrSo {
@@ -183,7 +183,7 @@ class CalculManager {
                 if isDecimal {
                     print("is decimal")
                     
-                    _total = _total + _previousNumber // !!
+                    _total = _previousNumber + currentNumber // !!
                     _previousNumber = _total
                     
                     getSetCurrentNumber = 0

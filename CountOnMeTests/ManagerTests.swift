@@ -217,5 +217,50 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 0)
     }
     
+    func testDecimalSImpleCalcul() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) + Double(0.5)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    func testDecimalMediumCalcul() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        let nb4 = 2
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb4)
+        
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) + Double(0.5) + Double(nb4)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    
     
 }
