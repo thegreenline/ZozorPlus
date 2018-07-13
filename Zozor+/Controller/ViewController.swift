@@ -26,7 +26,6 @@ class ViewController: UIViewController {
     
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in keyPad
-//        manager.senderTag = sender.tag
         manager.keypadBtn(senderTag: sender.tag)
         updateDisplay()
     }
