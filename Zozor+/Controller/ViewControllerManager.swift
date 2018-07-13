@@ -14,7 +14,7 @@ class ViewControllerManager {
     var _displayNumber: String = ""
     var textView = ""
     private var _codeErreur: Int?
-
+    
     
     var getCalculInstance: CalculManager {
         return calcul
@@ -29,9 +29,9 @@ class ViewControllerManager {
     private var isCorrect: Bool {
         var isCorrect: Bool
         if calcul.checkFirstStep { _codeErreur = 1; isCorrect = false }
-         if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; isCorrect = false }
+        if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; isCorrect = false }
         else if calcul.checkIfDiviseWithZero { _codeErreur = 3; isCorrect = false }
-         else { isCorrect = true }
+        else { isCorrect = true }
         return isCorrect
     }
     
@@ -55,118 +55,62 @@ class ViewControllerManager {
         updateDisplay() //
     }
     
-    func plusBtn() {
-        // action when plus btn is presed
+    private func displayAction(_ signe: String) {
+        _displayNumber = _displayNumber + signe
+        updateDisplay()
+    }
+    
+    func actionsForOperators(senderOperator signe: String) {
         guard isCorrect, !calcul.isEnded else {
             calcul.isDecimal = false
             if calcul.isEnded {
-                calcul.addOperator(signe: "+")
-                _displayNumber = String(calcul.returnTotal) + "+"
+                // do take last result for new operation
+                calcul.addOperator(signe: signe)
+                _displayNumber = String(calcul.returnTotal) + signe
                 updateDisplay() //
             }
             return
         }
         // do start new calcul
         if calcul.isFirstStep {
-            calcul.addOperator(signe: "+")
-            _displayNumber = _displayNumber + "+"
-            updateDisplay() //
+            calcul.addOperator(signe: signe)
+            displayAction(signe) //
             calcul.isFirstStep = false
         } else {
             calcul.updateResult()
-            calcul.addOperator(signe: "+")
-            _displayNumber = _displayNumber + "+"
-            updateDisplay() //
+            calcul.addOperator(signe: signe)
+            displayAction(signe)
             calcul.isDecimal = false
         }
     }
+    
+    func plusBtn() {
+        // action when plus btn is presed
+        actionsForOperators(senderOperator: "+")
+    }
+    
     func minusBtn() {
         // action when minus btn is presed
-        
-        guard isCorrect, !calcul.isEnded else {
-            calcul.isDecimal = false
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "-")
-                _displayNumber = String(calcul.returnTotal) + "-"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-        if calcul.isFirstStep {
-            calcul.addOperator(signe: "-")
-            _displayNumber = _displayNumber + "-"
-            updateDisplay() //
-            calcul.isFirstStep = false
-        } else {
-            calcul.updateResult()
-            calcul.addOperator(signe: "-")
-            _displayNumber = _displayNumber + "-"
-            updateDisplay() //
-            calcul.isDecimal = false ///
-        }
+        actionsForOperators(senderOperator: "-")
     }
+    
     func multiplyBtn() {
         // action when multyply btn is presed
-        
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "*")
-                _displayNumber = String(calcul.returnTotal) + "*"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-        
-        if calcul.isFirstStep {
-            calcul.addOperator(signe: "*")
-            _displayNumber = _displayNumber + "*"
-            updateDisplay() //
-            calcul.isFirstStep = false
-        } else {
-            calcul.updateResult()
-            calcul.addOperator(signe: "*")
-            _displayNumber = _displayNumber + "*"
-            updateDisplay() //
-            calcul.isDecimal = false ///
-        }
+        actionsForOperators(senderOperator: "*")
     }
+    
     func divideBtn() {
         // action when divide btn is presed
-        
-        guard isCorrect, !calcul.isEnded else {
-            if calcul.isEnded {
-                // do take last result for new operation
-                calcul.addOperator(signe: "/")
-                _displayNumber = String(calcul.returnTotal) + "/"
-                updateDisplay()
-            }
-            return
-        }
-        // do start new calcul
-        
-        if calcul.isFirstStep {
-            calcul.addOperator(signe: "/")
-            _displayNumber = _displayNumber + "/"
-            updateDisplay() //
-            calcul.isFirstStep = false
-        } else {
-            calcul.updateResult()
-            calcul.addOperator(signe: "/")
-            _displayNumber = _displayNumber + "/"
-            updateDisplay() //
-            calcul.isDecimal = false ///
-        }
+        actionsForOperators(senderOperator: "/")
     }
+    
     func addCommaBtn() {
         calcul.isDecimal = true
         _displayNumber = _displayNumber + "."
         updateDisplay()
         calcul.isTenOrSo = false
     }
+    
     func equalBtn() {
         // action when equal btn is presed
         
@@ -174,7 +118,7 @@ class ViewControllerManager {
         calcul.isEnded = true
         calcul.isDecimal = false
         calcul.isTenOrSo = false
-        calculAndDisplayTotal() ////////////////////-0-//
+        calculAndDisplayTotal()
         _displayNumber.removeAll()
         calcul.addOperator(signe: "")
         calcul.restDecimalLong()
@@ -195,7 +139,7 @@ class ViewControllerManager {
         
         guard isCorrect else { return }
         calcul.updateResult()
-        let total = calcul.returnTotal /////////////////-0-
+        let total = calcul.returnTotal
         textView = textView + " = \(total)"
         print("resultat display : " + textView)
     }
