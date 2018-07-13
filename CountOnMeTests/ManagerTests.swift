@@ -451,7 +451,7 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCalculInstance.isDecimal == false)
         XCTAssert(manager.getCalculInstance.isEnded == false)
         XCTAssert(manager.getCalculInstance.isTenOrSo == false)
-        XCTAssertNil(manager.getCalculInstance.getSetCurrentNumber)
+        XCTAssertNil(manager.getCalculInstance.currentNumber)
         XCTAssert(manager.getCalculInstance.returnTotal == 0)
         XCTAssert(manager.getCalculInstance.getPreviousNumber == 0)
         XCTAssert(manager.getCalculInstance.getOperator == "")
@@ -471,4 +471,5 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(manager.getCodeErreur, 3)
         XCTAssert(manager.getCodeErreur == 3)
     }
+    
 }

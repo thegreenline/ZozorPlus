@@ -29,12 +29,7 @@ class CalculManager {
         // return current operato
         return _operators
     }
-    
-    var getTotal: Double {
-        // calucul total and return total
-        calculateTotal()
-        return _total
-    }
+
     var returnTotal: Double {
         // only return total
         return _total
@@ -48,11 +43,6 @@ class CalculManager {
         // return check if is the first step of calcul
         return didStartNewCalc()
     }
-    
-//    var checkIfDiviseWithZero: Bool {
-//        // return check if try to divise with 0
-//        return canDiviseWithZero()
-//    }
     
     // MARK: Setter
     
@@ -71,31 +61,31 @@ class CalculManager {
             _previousNumber = _previousNumber * 10 + Double(number)
             return
         }
+        
         if isDecimal {
             if !_addTenOrSo {
                 _decimalLong = 10
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
                 _addTenOrSo = true
-            } else {
+            }
+            else {
                 _decimalLong = _decimalLong * 10
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
             }
             // ajouter une variable decimal number
             return
         }
+        
         if !_addTenOrSo {
-            // FIXME: |||||||||||| remettre _currentnumber partout ???
-            getSetCurrentNumber = Double(number)
+            _currentNumber = Double(number)
             _addTenOrSo = true
         } else {
-            guard let currentNumber = _currentNumber else {
-                return
-            }
-            getSetCurrentNumber = currentNumber * 10 + Double(number)
+            guard let currentNumber = _currentNumber else { return }
+            _currentNumber = currentNumber * 10 + Double(number)
         }
     }
     
-    // MARK: getter setter
+    // MARK: getter and setter
     
     var isTenOrSo: Bool {
         get {
@@ -122,7 +112,7 @@ class CalculManager {
         }
     }
     
-    var getSetCurrentNumber: Double? {
+    var currentNumber: Double? {
         // return current number if is not nil and set new value of currentNumber (for Unit test)
         get {
             guard let currentNumber = _currentNumber else { return nil }
@@ -177,104 +167,26 @@ class CalculManager {
         return returnValue
     }
     
-    private func calculFirstStep(_ currentNumber: Double) {
-        // refactor of redondante part of the calcul method
-        _total += currentNumber
-        _previousNumber += currentNumber
-        _total = 0
-        getSetCurrentNumber = 0
-        _firstStep = false
-    }
-    
     private func calculateTotal() {
         // calcul result
         guard let currentNumber = _currentNumber else { return }
         let signe = _operators
+        let realDecimal = currentNumber + _decimalNumber
         switch signe {
         case "+":
-            if isFirstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                if isDecimal {
-                    print("is decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber + realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                } else {
-                    print("is not decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber + realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                }
-            }
+            _total = _previousNumber + realDecimal
         case "-":
-            if isFirstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                if isDecimal {
-                    print("is decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber - realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                } else {
-                    print("is not decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber - realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                }
-            }
+            _total = _previousNumber - realDecimal
         case "/":
-            if isFirstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                if isDecimal {
-                    print("is decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber / realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                } else {
-                    print("is not decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber / realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                }
-            }
+            _total = _previousNumber / realDecimal
         case "*":
-            if isFirstStep {
-                calculFirstStep(currentNumber)
-            } else {
-                if isDecimal {
-                    print("is decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber * realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                } else {
-                    print("is not decimal")
-                    let realDecimal = currentNumber + _decimalNumber
-                    _total = _previousNumber * realDecimal
-                    _previousNumber = _total
-                    getSetCurrentNumber = 0
-                    _decimalNumber = 0
-                }
-            }
+            _total = _previousNumber * realDecimal
         default:
             break
         }
         _firstStep = false
+        _previousNumber = _total
+        _currentNumber = 0
+        _decimalNumber = 0
     }
-    
 }

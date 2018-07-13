@@ -75,12 +75,12 @@ class CountOnMeTests: XCTestCase {
 //        let many1 = addManyNumbers(from: 1, to: 3)
 //        calcul.updateResult()
 //
-//        XCTAssertEqual(calcul.getSetCurrentNumber, many1)
-//        XCTAssertNotNil(calcul.getSetCurrentNumber)
+//        XCTAssertEqual(calcul.currentNumber, many1)
+//        XCTAssertNotNil(calcul.currentNumber)
 //    }
     
     func testCurrentNumberReturnNilOnStart() {
-        XCTAssertNil(calcul.getSetCurrentNumber)
+        XCTAssertNil(calcul.currentNumber)
     }
     
     func testAddOperator() {
@@ -94,7 +94,7 @@ class CountOnMeTests: XCTestCase {
 //
 //        
 //        XCTAssertEqual(calcul.getPreviousNumber, result)
-//        XCTAssertEqual(calcul.getSetCurrentNumber, nil)
+//        XCTAssertEqual(calcul.currentNumber, nil)
 //    }
     
     func testWhenCalculIsEndend_ThenDisplaedNumberIsRemove() {
@@ -140,7 +140,7 @@ class CountOnMeTests: XCTestCase {
 //        let result = many1 - many2
 //
 //        XCTAssertEqual(calcul.returnTotal, result)
-//        XCTAssertEqual(calcul.getSetCurrentNumber, 0)
+//        XCTAssertEqual(calcul.currentNumber, 0)
 //    }
     
     func testCanDivideWithZero () {
@@ -155,7 +155,7 @@ class CountOnMeTests: XCTestCase {
     func testStartNewCalc() {
         calcul.addOperator(signe: "")
         calcul.isFirstStep = true
-        calcul.getSetCurrentNumber = nil
+        calcul.currentNumber = nil
         
         XCTAssertTrue(calcul.checkFirstStep)
         
