@@ -75,27 +75,29 @@ class ViewController: UIViewController {
     
     private func isCorrect() -> Bool {
         // check if all is ok
-        // FIXME: repenser la fonction pour l'integer au manager !!!!!!!!!!
-        print("Code erreur : \(manager.getCodeErreur)")
-        if manager.getCodeErreur == 1 {
+        guard let codeErreur = manager.getCodeErreur else {
+            return true
+        }
+        var isCorrect: Bool
+        if codeErreur == 1 {
             let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
-            return false
-        }
-        else if manager.getCodeErreur == 2 {
+            isCorrect = false
+        } else if codeErreur == 2 {
             let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
-            return false
-        }
-        else if manager.getCodeErreur == 3 {
+            isCorrect = false
+        } else if codeErreur == 3 {
             let alertVC = UIAlertController(title: "Zero !", message: "Impossible de diviser par 0 !", preferredStyle: .alert)
             alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
             self.present(alertVC, animated: true, completion: nil)
-            return false
+            isCorrect = false
+        } else {
+            isCorrect = true
         }
-        return true
+        return isCorrect
     }
     
     private func updateDisplay() {

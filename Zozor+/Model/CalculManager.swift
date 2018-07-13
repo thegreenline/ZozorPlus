@@ -67,20 +67,17 @@ class CalculManager {
     
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
-        // FIXME: pourquoi le calcul se fait mal avce un decimal autre chose que 0 ??
         if isFirstStep && !_addTenOrSo {
             _previousNumber = _previousNumber * 10 + Double(number)
             return
         }
         if isDecimal {
-            // FIXME: modifier pour que le calcul des decimals autres que 0 focntionne correctement
             if !_addTenOrSo {
-                _decimalLong = 10 // FIXME: modif ici pour voir si la division par 0 est bloquer
+                _decimalLong = 10
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
                 _addTenOrSo = true
             } else {
                 _decimalLong = _decimalLong * 10
-//                _decimalNumber = _decimalNumber / 10 + Double(number) / 10
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
             }
             // ajouter une variable decimal number
@@ -200,16 +197,15 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    let decimal = currentNumber + _decimalNumber // FIXEME: renommer ici !!!
-                    _total = _previousNumber + decimal // !!
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber + realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
-                    // FIXME: voir ici pour la finc du calcul \||\|\\\
                 } else {
                     print("is not decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber + decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber + realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
@@ -221,36 +217,35 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber - decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber - realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber - decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber - realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
                 }
             }
         case "/":
-// FIXME: mettrre a jour la verificatio nde la division par zero !!
             if isFirstStep {
                 calculFirstStep(currentNumber)
             } else {
                 if isDecimal {
                     print("is decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber / decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber / realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber / decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber / realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
@@ -262,15 +257,15 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber * decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber * realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    let decimal = currentNumber + _decimalNumber
-                    _total = _previousNumber * decimal
+                    let realDecimal = currentNumber + _decimalNumber
+                    _total = _previousNumber * realDecimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
                     _decimalNumber = 0

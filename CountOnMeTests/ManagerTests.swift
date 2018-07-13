@@ -19,8 +19,6 @@ class ManagerTests: XCTestCase {
     
     func testCreateObjet() {
         XCTAssertNotNil(manager)
-        XCTAssertEqual(manager.getCodeErreur, 0)
-
     }
     
     func testAddition() {
@@ -37,7 +35,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + Double(nb2)
         
         XCTAssert(result == total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testMinus() {
@@ -54,7 +52,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) - Double(nb2)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testMultiply() {
@@ -71,7 +69,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) * Double(nb2)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testDivide() {
@@ -88,7 +86,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) / Double(nb2)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testCalculSequence() {
@@ -111,7 +109,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1 * 10 + nb4) + Double(nb2) - Double(nb3)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testAllOperatorsSequenceAndChainCalc() {
@@ -171,7 +169,7 @@ class ManagerTests: XCTestCase {
         result = Double(12) * Double(12)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testAllOperatorsSequenceAndChainCalcWhithBigNumber() {
@@ -209,7 +207,7 @@ class ManagerTests: XCTestCase {
         result = result + Double(12)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
 
     func testAllOperatorsSequenceAndStartNewCalc() {
@@ -242,7 +240,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + Double(nb2)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalSImpleCalculPlus() {
@@ -262,7 +260,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + Double(0.5)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalSImpleCalculMinus() {
@@ -282,7 +280,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) - Double(0.5)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalSImpleCalculDivide() {
@@ -302,7 +300,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) / Double(0.5)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalComplexCalculDivide() {
@@ -327,7 +325,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) / Double(0.25252)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalSImpleCalculMultiply() {
@@ -347,7 +345,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) * Double(0.5)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testOneDecimalMediumCalculOnlyPlus() {
@@ -373,7 +371,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + Double(0.55) + Double(nb4) - Double(nb3)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testTwoDecimalSImpleCalcul() {
@@ -394,7 +392,7 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + Double(0.55)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     
@@ -417,7 +415,7 @@ class ManagerTests: XCTestCase {
         result = Double(20) + Double(2.5)
         
         XCTAssertEqual(result, total)
-        XCTAssert(manager.getCodeErreur == 0)
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testAcFunction() {
@@ -457,7 +455,8 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCalculInstance.returnTotal == 0)
         XCTAssert(manager.getCalculInstance.getPreviousNumber == 0)
         XCTAssert(manager.getCalculInstance.getOperator == "")
-        XCTAssert(manager.getCodeErreur == 0)
+        
+        XCTAssert(manager.getCodeErreur == nil)
     }
     
     func testCanDivideWithZero() {
