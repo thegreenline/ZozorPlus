@@ -13,7 +13,8 @@ class ViewControllerManager {
     private let calcul = CalculManager() // instance of class CalculModel
     var _displayNumber: String = ""
     var textView = ""
-    private var _codeErreur = 0
+    private var _codeErreur = 11 // FIXME: mettre nil pour le code erreur de base ????
+
     
     var getCalculInstance: CalculManager {
         return calcul
@@ -23,24 +24,27 @@ class ViewControllerManager {
         return _codeErreur
     }
     private var isCorrect: Bool {
-        // FIXME: need to reel check here, le lier au VC !?
-        
-        if calcul.checkFirstStep { _codeErreur = 1; return false }
-         if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; return false }
-        else if calcul.checkIfDiviseWithZero { _codeErreur = 3; return false }
+        // FIXME: need to reel check here, le lier au VC !? Eventuellement partur du principe que le calcul est faux et pas vrai ?
+        var isCorrect: Bool
+        if calcul.checkFirstStep { _codeErreur = 1; isCorrect = false }
+         if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; isCorrect = false }
+        else if calcul.checkIfDiviseWithZero { _codeErreur = 3; isCorrect = false }
+         else { isCorrect = true }
         print("Code erreur : \(_codeErreur)")
-        _codeErreur = 0
-        return true
+        return isCorrect
     }
     
     var needToClear: Bool {
         // refactor check if operator is present at the end of calcul
-        
+        var needToClear = false
         if calcul.getOperator == "" && calcul.isEnded {
-            return true
-        } else {
-            return false
+            needToClear = true
+//            return true
         }
+//        else {
+//            return false
+//        }
+        return needToClear
     }
     
     func keypadBtn(senderTag: Int) {
@@ -53,6 +57,7 @@ class ViewControllerManager {
         calcul.addCurrentNumber(senderTag)
         updateDisplay() //
         print("resultat au keypad \(calcul.returnTotal)")
+        print("Code erreur au keypad \(getCodeErreur)")
     }
     
     func plusBtn() {
@@ -62,11 +67,9 @@ class ViewControllerManager {
             // FIXME: voir ou doit etre remis a faux la valeur isDecimal, je pense aue ici c'est bien
             calcul.isDecimal = false
             if calcul.isEnded {
-                // do take last result for new operation
                 calcul.addOperator(signe: "+")
                 _displayNumber = String(calcul.returnTotal) + "+"
                 updateDisplay() //
-//                calcul.isDecimal = false
             }
             return
         }
@@ -81,10 +84,9 @@ class ViewControllerManager {
             calcul.addOperator(signe: "+")
             _displayNumber = _displayNumber + "+"
             updateDisplay() //
-            calcul.isDecimal = false //////////////////// resoluton des decimals 1 chiffre
+            calcul.isDecimal = false
         }
         print("resultat au PLUS \(calcul.returnTotal)")
-//        calcul.isDecimal = false
     }
     func minusBtn() {
         // action when minus btn is presed
@@ -181,9 +183,10 @@ class ViewControllerManager {
     func equalBtn() {
         // action when equal btn is presed
         
-        guard !calcul.isEnded else { return }
+        guard isCorrect, !calcul.isEnded else { return }
         calcul.isEnded = true
         calcul.isDecimal = false
+        calcul.isTenOrSo = false
         calculAndDisplayTotal() ////////////////////-0-//
         _displayNumber.removeAll()
         //            calcul.isEnded = true

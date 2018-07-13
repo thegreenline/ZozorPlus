@@ -18,7 +18,7 @@ class CalculManager {
     private var _previousNumber: Double = 0
     private var _decimalNumber: Double = 0
     private var _total: Double = 0
-    private var _decimalLong: Double = 10
+    private var _decimalLong: Double = 1
     
     // MARK: Getter
     
@@ -49,10 +49,10 @@ class CalculManager {
         return didStartNewCalc()
     }
     
-    var checkIfDiviseWithZero: Bool {
-        // return check if try to divise with 0
-        return canDiviseWithZero()
-    }
+//    var checkIfDiviseWithZero: Bool {
+//        // return check if try to divise with 0
+//        return canDiviseWithZero()
+//    }
     
     // MARK: Setter
     
@@ -62,7 +62,7 @@ class CalculManager {
     }
     
     func restDecimalLong() {
-        _decimalLong = 10
+        _decimalLong = 1
     }
     
     func addCurrentNumber(_ number: Int) {
@@ -75,6 +75,7 @@ class CalculManager {
         if isDecimal {
             // FIXME: modifier pour que le calcul des decimals autres que 0 focntionne correctement
             if !_addTenOrSo {
+                _decimalLong = 10 // FIXME: modif ici pour voir si la division par 0 est bloquer
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
                 _addTenOrSo = true
             } else {
@@ -154,14 +155,14 @@ class CalculManager {
         _addTenOrSo = false
         _calculEnded = false
         _isDecimal = false
-        _decimalLong = 10
+        restDecimalLong()
     }
     
-    private func canDiviseWithZero() -> Bool {
+     var checkIfDiviseWithZero: Bool {
         // check if try to divise with 0
         
         var isZero = false
-        if _operators == "/" && _currentNumber == 0 && isDecimal {
+        if _operators == "/" && _currentNumber == 0 && _decimalLong == 1 {
             isZero = true
         }
         return isZero

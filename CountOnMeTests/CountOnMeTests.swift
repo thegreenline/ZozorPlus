@@ -143,14 +143,14 @@ class CountOnMeTests: XCTestCase {
 //        XCTAssertEqual(calcul.getSetCurrentNumber, 0)
 //    }
     
-//    func testCanDivideWithZero () {
-//        calcul.addCurrentNumber(3)
-//        calcul.addOperator(signe: "/")
-//        calcul.addCurrentNumber(0)
-//        calcul.updateResult()
-//
-//        XCTAssertTrue(calcul.checkIfDiviseWithZero)
-//    }
+    func testCanDivideWithZero () {
+        calcul.addCurrentNumber(3)
+        calcul.addOperator(signe: "/")
+        calcul.addCurrentNumber(0)
+        calcul.updateResult()
+
+        XCTAssertFalse(calcul.checkIfDiviseWithZero)
+    }
     
     func testStartNewCalc() {
         calcul.addOperator(signe: "")

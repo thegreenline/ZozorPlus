@@ -19,6 +19,8 @@ class ManagerTests: XCTestCase {
     
     func testCreateObjet() {
         XCTAssertNotNil(manager)
+        XCTAssertEqual(manager.getCodeErreur, 0)
+
     }
     
     func testAddition() {
@@ -138,9 +140,35 @@ class ManagerTests: XCTestCase {
         manager.keypadBtn(senderTag: nb2)
         manager.equalBtn()
         
+        manager.minusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(senderTag: nb1)
+        manager.equalBtn()
+        
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb2)
+        manager.equalBtn()
+        
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb5)
+        manager.equalBtn()
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb2)
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb2)
+        manager.equalBtn()
+        
         let total = manager.getCalculInstance.returnTotal
         result = (Double(16) + Double(nb2) - Double(nb3)) * Double(nb5) / Double(nb6)
         result = result + Double(12)
+        result = result - Double(21)
+        result = result * Double(12)
+        result = result / Double(nb5)
+        
+        result = Double(12) * Double(12)
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == 0)
@@ -391,5 +419,57 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == 0)
     }
+    
+    func testAcFunction() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 5
+        
+        manager.keypadBtn(senderTag: nb1)
+        XCTAssert(manager.getCalculInstance.isDecimal == false)
+        manager.plusBtn()
+        XCTAssert(manager.getCalculInstance.isDecimal == false)
+        manager.keypadBtn(senderTag: nb2)
+        XCTAssert(manager.getCalculInstance.isDecimal == false)
+        manager.addCommaBtn()
+        XCTAssert(manager.getCalculInstance.isDecimal == true)
+        XCTAssert(manager.getCalculInstance.isTenOrSo == false)
+        manager.keypadBtn(senderTag: nb3)
+        XCTAssert(manager.getCalculInstance.isDecimal == true)
+        XCTAssert(manager.getCalculInstance.isTenOrSo == true)
+        manager.keypadBtn(senderTag: nb3)
+        XCTAssert(manager.getCalculInstance.isDecimal == true)
+        XCTAssert(manager.getCalculInstance.isTenOrSo == true)
+        manager.equalBtn()
+        XCTAssert(manager.getCalculInstance.isDecimal == false)
+        XCTAssert(manager.getCalculInstance.isTenOrSo == false)
 
+        manager.acBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        
+        XCTAssertEqual(total, 0)
+        XCTAssert(manager.getCalculInstance.isFirstStep == true)
+        XCTAssert(manager.getCalculInstance.isDecimal == false)
+        XCTAssert(manager.getCalculInstance.isEnded == false)
+        XCTAssert(manager.getCalculInstance.isTenOrSo == false)
+        XCTAssertNil(manager.getCalculInstance.getSetCurrentNumber)
+        XCTAssert(manager.getCalculInstance.returnTotal == 0)
+        XCTAssert(manager.getCalculInstance.getPreviousNumber == 0)
+        XCTAssert(manager.getCalculInstance.getOperator == "")
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
+    func testCanDivideWithZero() {
+        let nb1 = 1
+        let nb2 = 0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.plusBtn()
+        
+        XCTAssertEqual(manager.getCodeErreur, 3)
+        XCTAssert(manager.getCodeErreur == 3)
+    }
 }
