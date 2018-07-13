@@ -176,6 +176,7 @@ class ViewControllerManager {
         calcul.isDecimal = true
         _displayNumber = _displayNumber + "."
         updateDisplay()
+        calcul.isTenOrSo = false
     }
     func equalBtn() {
         // action when equal btn is presed
@@ -190,7 +191,7 @@ class ViewControllerManager {
         print("Get total = \(calcul.returnTotal)")
         // FIXME: remettre a true isFirstStep ????
         //        calcul.isFirstStep = true
-        
+        calcul.restDecimalLong()
     }
     
     func acBtn() {

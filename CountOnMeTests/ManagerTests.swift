@@ -277,6 +277,31 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 0)
     }
     
+    func testOneDecimalComplexCalculDivide() {
+        let nb1 = 1
+        let nb2 = 0
+        let nb3 = 2
+        let nb4 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(senderTag: nb3)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(nb1) / Double(0.25252)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
+    
     func testOneDecimalSImpleCalculMultiply() {
         let nb1 = 1
         let nb2 = 0

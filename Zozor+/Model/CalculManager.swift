@@ -18,6 +18,7 @@ class CalculManager {
     private var _previousNumber: Double = 0
     private var _decimalNumber: Double = 0
     private var _total: Double = 0
+    private var _decimalLong: Double = 10
     
     // MARK: Getter
     
@@ -60,6 +61,10 @@ class CalculManager {
         _operators = signe
     }
     
+    func restDecimalLong() {
+        _decimalLong = 10
+    }
+    
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
         // FIXME: pourquoi le calcul se fait mal avce un decimal autre chose que 0 ??
@@ -69,12 +74,13 @@ class CalculManager {
         }
         if isDecimal {
             // FIXME: modifier pour que le calcul des decimals autres que 0 focntionne correctement
-            guard let currentNumber = _currentNumber else { return }
             if !_addTenOrSo {
-                getSetCurrentNumber = currentNumber + Double(number) / 10
+                _decimalNumber = _decimalNumber + Double(number) / _decimalLong
                 _addTenOrSo = true
             } else {
-                getSetCurrentNumber = currentNumber / 10 + Double(number) / 10
+                _decimalLong = _decimalLong * 10
+//                _decimalNumber = _decimalNumber / 10 + Double(number) / 10
+                _decimalNumber = _decimalNumber + Double(number) / _decimalLong
             }
             // ajouter une variable decimal number
             return
@@ -93,6 +99,13 @@ class CalculManager {
     
     // MARK: getter setter
     
+    var isTenOrSo: Bool {
+        get {
+            return _addTenOrSo
+        } set {
+            _addTenOrSo = newValue
+        }
+    }
     var isFirstStep: Bool {
         // return bool of the fist step and attibut newvalue
         get {
@@ -141,13 +154,14 @@ class CalculManager {
         _addTenOrSo = false
         _calculEnded = false
         _isDecimal = false
+        _decimalLong = 10
     }
     
     private func canDiviseWithZero() -> Bool {
         // check if try to divise with 0
         
         var isZero = false
-        if _operators == "/" && _currentNumber == 0 {
+        if _operators == "/" && _currentNumber == 0 && isDecimal {
             isZero = true
         }
         return isZero
@@ -185,16 +199,19 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-
-                    _total = _previousNumber + currentNumber // !!
+                    let decimal = currentNumber + _decimalNumber // FIXEME: renommer ici !!!
+                    _total = _previousNumber + decimal // !!
                     _previousNumber = _total
                     getSetCurrentNumber = 0
-//                        isDecimal = false
+                    _decimalNumber = 0
+                    // FIXME: voir ici pour la finc du calcul \||\|\\\
                 } else {
                     print("is not decimal")
-                    _total = _previousNumber + currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber + decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
+                    _decimalNumber = 0
                 }
             }
         case "-":
@@ -203,17 +220,18 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    
-//                    _total = _total - _previousNumber // !!
-                    _total = _previousNumber - currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber - decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
-//                        isDecimal = false
+                    _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    _total = _previousNumber - currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber - decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
+                    _decimalNumber = 0
                 }
             }
         case "/":
@@ -223,17 +241,18 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    
-//                    _total = _total / _previousNumber // !!
-                    _total = _previousNumber / currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber / decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
-                    //                        isDecimal = false
+                    _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    _total = _previousNumber / currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber / decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
+                    _decimalNumber = 0
                 }
             }
         case "*":
@@ -242,17 +261,18 @@ class CalculManager {
             } else {
                 if isDecimal {
                     print("is decimal")
-                    
-//                    _total = _total * _previousNumber // !!
-                    _total = _previousNumber * currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber * decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
-                    //                        isDecimal = false
+                    _decimalNumber = 0
                 } else {
                     print("is not decimal")
-                    _total = _previousNumber * currentNumber
+                    let decimal = currentNumber + _decimalNumber
+                    _total = _previousNumber * decimal
                     _previousNumber = _total
                     getSetCurrentNumber = 0
+                    _decimalNumber = 0
                 }
             }
         default:
