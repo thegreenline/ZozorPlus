@@ -17,10 +17,6 @@ class ManagerTests: XCTestCase {
         manager = ViewControllerManager()
     }
     
-    func testCreateObjet() {
-        XCTAssertNotNil(manager)
-    }
-    
     func testAddition() {
         let nb1 = 1
         let nb2 = 1
@@ -160,7 +156,7 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = (Double(16) + Double(nb2) - Double(nb3)) * Double(nb5) / Double(nb6)
+        result = (Double(nb1 * 10 + nb4) + Double(nb2) - Double(nb3)) * Double(nb5) / Double(nb6)
         result = result + Double(12)
         result = result - Double(21)
         result = result * Double(12)
@@ -203,7 +199,7 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = (Double(16) + Double(22) - Double(44)) * Double(33) / Double(22)
+        result = (Double(nb1 * 10 + nb4) + Double(nb2 * 10 + nb2) - Double(nb3 * 10 + nb3)) * Double(nb5 * 10 + nb5) / Double(nb2 * 10 + nb2)
         result = result + Double(12)
         
         XCTAssertEqual(result, total)
@@ -257,7 +253,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) + Double(0.5)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10
+        result = Double(nb1) + decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -277,7 +274,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) - Double(0.5)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10
+        result = Double(nb1) - decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -297,7 +295,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) / Double(0.5)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10
+        result = Double(nb1) / decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -342,7 +341,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) * Double(0.5)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10
+        result = Double(nb1) * decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -368,7 +368,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) + Double(0.55) + Double(nb4) - Double(nb3)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10 + Double(nb3) / 100
+        result = Double(nb1) + decimal + Double(nb4) - Double(nb3)
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -389,7 +390,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(nb1) + Double(0.55)
+        let decimal: Double = Double(nb2) + Double(nb3) / 10 + Double(nb3) / 100
+        result = Double(nb1) + decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -412,7 +414,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(20) + Double(2.5)
+        let decimal: Double = Double(nb1) + Double(nb4) / 10
+        result = Double(nb1 * 10 + nb2) + decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -434,7 +437,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(20) - Double(2.5)
+        let decimal: Double = Double(nb1) + Double(nb4) / 10
+        result = Double(nb1 * 10 + nb2) - decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -456,7 +460,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(20) * Double(2.5)
+        let decimal: Double = Double(nb1) + Double(nb4) / 10
+        result = Double(nb1 * 10 + nb2) * decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -478,7 +483,8 @@ class ManagerTests: XCTestCase {
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        result = Double(20) / Double(2.5)
+        let decimal: Double = Double(nb1) + Double(nb4) / 10
+        result = Double(nb1 * 10 + nb2) / decimal
         
         XCTAssertEqual(result, total)
         XCTAssert(manager.getCodeErreur == nil)
@@ -511,8 +517,8 @@ class ManagerTests: XCTestCase {
         manager.acBtn()
         
         let total = manager.getCalculInstance.returnTotal
-        
         XCTAssertEqual(total, 0)
+        
         XCTAssert(manager.getCalculInstance.isFirstStep == true)
         XCTAssert(manager.getCalculInstance.isDecimal == false)
         XCTAssert(manager.getCalculInstance.isEnded == false)
