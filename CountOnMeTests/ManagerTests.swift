@@ -344,5 +344,27 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 0)
     }
     
+    
+    func testBigNumberWithNotZeroDecimal() {
+        let nb1 = 2
+        let nb2 = 0
+        let nb3 = 2
+        let nb4 = 5
+        var result = 0.0
+        
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb2)
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        result = Double(20) + Double(2.5)
+        
+        XCTAssertEqual(result, total)
+        XCTAssert(manager.getCodeErreur == 0)
+    }
 
 }

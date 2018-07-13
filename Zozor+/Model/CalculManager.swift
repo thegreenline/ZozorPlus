@@ -16,6 +16,7 @@ class CalculManager {
     private var _isDecimal = false
     private var _currentNumber: Double?
     private var _previousNumber: Double = 0
+    private var _decimalNumber: Double = 0
     private var _total: Double = 0
     
     // MARK: Getter
@@ -62,12 +63,12 @@ class CalculManager {
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
         // FIXME: pourquoi le calcul se fait mal avce un decimal autre chose que 0 ??
-        if isFirstStep {
+        if isFirstStep && !_addTenOrSo {
             _previousNumber = _previousNumber * 10 + Double(number)
-            //            isFirstStep = false
             return
         }
         if isDecimal {
+            // FIXME: modifier pour que le calcul des decimals autres que 0 focntionne correctement
             guard let currentNumber = _currentNumber else { return }
             if !_addTenOrSo {
                 getSetCurrentNumber = currentNumber + Double(number) / 10
@@ -79,7 +80,7 @@ class CalculManager {
             return
         }
         if !_addTenOrSo {
-            // FIXME: remettre _currentnumber partout ???
+            // FIXME: |||||||||||| remettre _currentnumber partout ???
             getSetCurrentNumber = Double(number)
             _addTenOrSo = true
         } else {
