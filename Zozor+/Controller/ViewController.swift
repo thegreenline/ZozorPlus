@@ -79,19 +79,13 @@ class ViewController: UIViewController {
         }
         var isCorrect: Bool
         if codeErreur == 1 {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            AlertVC.alertStartNewCalc(on: self)
             isCorrect = false
         } else if codeErreur == 2 {
-            let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            AlertVC.alertWrongExpression(on: self)
             isCorrect = false
         } else if codeErreur == 3 {
-            let alertVC = UIAlertController(title: "Zero !", message: "Impossible de diviser par 0 !", preferredStyle: .alert)
-            alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-            self.present(alertVC, animated: true, completion: nil)
+            AlertVC.alertCanDivideWithZero(on: self)
             isCorrect = false
         } else {
             isCorrect = true

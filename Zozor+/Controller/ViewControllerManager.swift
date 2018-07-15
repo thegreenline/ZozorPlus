@@ -141,13 +141,11 @@ class ViewControllerManager {
         calcul.updateResult()
         let total = calcul.returnTotal
         textView = textView + " = \(total)"
-        print("resultat display : " + textView)
     }
     
     private func updateDisplay() {
         var text: String
         text = "\(_displayNumber)"
         textView = text
-        print(textView)
     }
 }
