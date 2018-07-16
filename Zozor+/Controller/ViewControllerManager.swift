@@ -5,14 +5,15 @@
 //  Created by Nicolas on 11/07/2018.
 //  Copyright © 2018 Ambroise Collon. All rights reserved.
 //
+// FIXME: decrire ici a quoi sert la classe
 
 import UIKit
 
 class ViewControllerManager {
     
     private let calcul = CalculManager() // instance of class CalculModel
-    var _displayNumber: String = ""
-    var textView = ""
+    private var _displayNumber: String = ""
+    var textView = "" // FIXME: private ??
     private var _codeErreur: Int?
     
     
@@ -76,7 +77,15 @@ class ViewControllerManager {
             calcul.addOperator(signe: signe)
             displayAction(signe) //
             calcul.isFirstStep = false
-        } else {
+        }
+//        else if calcul.isFirstStep && calcul.isDecimal {
+//            calcul.updateResult()
+//            calcul.addOperator(signe: signe)
+//            displayAction(signe)
+//            calcul.isFirstStep = false
+//            calcul.isDecimal = false
+//        }
+        else {
             calcul.updateResult()
             calcul.addOperator(signe: signe)
             displayAction(signe)

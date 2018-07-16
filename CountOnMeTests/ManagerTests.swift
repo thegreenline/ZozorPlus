@@ -428,4 +428,48 @@ class ManagerTests: XCTestCase {
         XCTAssert(manager.getCodeErreur == 3)
     }
     
+    func testBigNumberWithNotZeroDecimalAndDixaineMultiply() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimal = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+        result = Double(nb1 * 10 + nb7) * decimal
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    
+    // FIXME: test pour tester les decimanx a la première etape de calcul
+    
+//    func testBigNumberWithDecimalInFirstStepCalcul() {
+//        manager.keypadBtn(senderTag: nb1)
+//        manager.keypadBtn(senderTag: nb7)
+//        manager.addCommaBtn()
+//        manager.keypadBtn(senderTag: nb4)
+//
+//        manager.multiplyBtn()
+//        manager.keypadBtn(senderTag: nb3)
+//        manager.keypadBtn(senderTag: nb4)
+//        manager.addCommaBtn()
+//        manager.keypadBtn(senderTag: nb4)
+//        manager.equalBtn()
+//        
+//        let total = manager.getCalculInstance.returnTotal
+//        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
+//        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+//        result = decimalFisrtStep * decimalSecondStep
+////        result = Double(nb1 * 10 + nb7) * decimal
+//        
+//        XCTAssertEqual(result, total)
+//        XCTAssertNil(manager.getCodeErreur)
+//    }
+    
+    
 }

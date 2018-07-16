@@ -17,7 +17,7 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
+    @IBOutlet var numberButtons: [UIButton]! // FIXEME: a supprimer
     
     private let calcul = CalculManager() // instance of class CalculModel
     private let manager = ViewControllerManager() // instance of VCManager
@@ -78,16 +78,17 @@ class ViewController: UIViewController {
             return true
         }
         var isCorrect: Bool
-        if codeErreur == 1 {
+        switch codeErreur {
+        case 1:
             AlertVC.alertStartNewCalc(on: self)
             isCorrect = false
-        } else if codeErreur == 2 {
+        case 2:
             AlertVC.alertWrongExpression(on: self)
             isCorrect = false
-        } else if codeErreur == 3 {
+        case 3:
             AlertVC.alertCanDivideWithZero(on: self)
             isCorrect = false
-        } else {
+        default:
             isCorrect = true
         }
         return isCorrect

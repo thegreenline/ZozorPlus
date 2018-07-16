@@ -5,6 +5,8 @@
 //  Created by Nicolas on 26/06/2018.
 //  Copyright © 2018 Ambroise Collon. All rights reserved.
 //
+// FIXME: decrire ici a quoi sert la classe
+
 
 class CalculManager {
     // MARK: Proprety
@@ -59,7 +61,7 @@ class CalculManager {
         // verify and add a new nember
         if isFirstStep && !_addTenOrSo {
             _previousNumber = _previousNumber * 10 + Double(number)
-            return
+            return // le pb vient de la 
         }
         
         if isDecimal {

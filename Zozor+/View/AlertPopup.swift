@@ -6,7 +6,6 @@
 //  Copyright © 2018 Ambroise Collon. All rights reserved.
 //
 
-import Foundation
 import UIKit
 
 struct AlertVC {
@@ -20,11 +19,10 @@ struct AlertVC {
     static func alertWrongExpression(on vc: UIViewController) {
         showAlert(on: vc, with: "Zero !", message: "Entrez une expression correcte !")
     }
-    
     static func alertCanDivideWithZero(on vc: UIViewController) {
         showAlert(on: vc, with: "Zero !", message: "Impossible de diviser par 0 !")
     }
     static func alertStartNewCalc(on vc: UIViewController) {
-        showAlert(on: vc, with: "Zéro!", message: "Démarrez un nouveau calcul !")
+        showAlert(on: vc, with: "Zéro !", message: "Démarrez un nouveau calcul !")
     }
 }

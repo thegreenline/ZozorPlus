@@ -11,13 +11,10 @@ import XCTest
 
 class CountOnMeTests: XCTestCase {
     var calcul = CalculManager()
-    var manager = ViewControllerManager()
 
     override func setUp() {
         super.setUp()
         calcul = CalculManager()
-        manager = ViewControllerManager()
-        
     }
     
     func testSigne() {
