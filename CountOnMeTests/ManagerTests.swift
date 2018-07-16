@@ -38,7 +38,6 @@ class ManagerTests: XCTestCase {
         XCTAssert(result == total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testMinus() {
         manager.keypadBtn(senderTag: nb1)
         manager.minusBtn()
@@ -51,7 +50,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testMultiply() {
         manager.keypadBtn(senderTag: nb1)
         manager.multiplyBtn()
@@ -64,7 +62,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testDivide() {
         manager.keypadBtn(senderTag: nb1)
         manager.divideBtn()
@@ -77,7 +74,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testCalculSequence() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb4)
@@ -94,7 +90,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testAllOperatorsSequenceAndChainCalc() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb4)
@@ -146,7 +141,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testAllOperatorsSequenceAndChainCalcWhithBigNumber() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb4)
@@ -176,7 +170,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-
     func testAllOperatorsSequenceAndStartNewCalc() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb4)
@@ -201,7 +194,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalSImpleCalculPlus() {
         manager.keypadBtn(senderTag: nb1)
         manager.plusBtn()
@@ -217,7 +209,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalSImpleCalculMinus() {
         manager.keypadBtn(senderTag: nb1)
         manager.minusBtn()
@@ -233,7 +224,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalSImpleCalculDivide() {
         manager.keypadBtn(senderTag: nb1)
         manager.divideBtn()
@@ -249,7 +239,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalComplexCalculDivide() {
         manager.keypadBtn(senderTag: nb1)
         manager.divideBtn()
@@ -269,7 +258,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalSImpleCalculMultiply() {
         manager.keypadBtn(senderTag: nb1)
         manager.multiplyBtn()
@@ -285,7 +273,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testOneDecimalMediumCalculOnlyPlus() {
         manager.keypadBtn(senderTag: nb1)
         manager.plusBtn()
@@ -306,7 +293,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testTwoDecimalSImpleCalcul() {
         manager.keypadBtn(senderTag: nb1)
         manager.plusBtn()
@@ -321,9 +307,8 @@ class ManagerTests: XCTestCase {
         result = Double(nb1) + decimal
         
         XCTAssertEqual(result, total)
-        XCTAssertNil(manager.getCodeErreur)    }
-    
-    
+        XCTAssertNil(manager.getCodeErreur)
+    }
     func testBigNumberWithNotZeroDecimal() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb7)
@@ -340,7 +325,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testBigNumberWithNotZeroDecimalMinus() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb7)
@@ -357,7 +341,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testBigNumberWithNotZeroDecimalMultiply() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb7)
@@ -374,7 +357,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testBigNumberWithNotZeroDecimalDivide() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb7)
@@ -391,7 +373,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testAcFunction() {
         manager.keypadBtn(senderTag: nb1)
         manager.plusBtn()
@@ -417,7 +398,6 @@ class ManagerTests: XCTestCase {
         
         XCTAssertNil(manager.getCodeErreur)
     }
-    
     func testCanDivideWithZero() {
         manager.keypadBtn(senderTag: nb1)
         manager.divideBtn()
@@ -427,7 +407,6 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(manager.getCodeErreur, 3)
         XCTAssert(manager.getCodeErreur == 3)
     }
-    
     func testBigNumberWithNotZeroDecimalAndDixaineMultiply() {
         manager.keypadBtn(senderTag: nb1)
         manager.keypadBtn(senderTag: nb7)
@@ -445,31 +424,112 @@ class ManagerTests: XCTestCase {
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)
     }
-    
-    // FIXME: test pour tester les decimanx a la première etape de calcul
-    
-//    func testBigNumberWithDecimalInFirstStepCalcul() {
-//        manager.keypadBtn(senderTag: nb1)
-//        manager.keypadBtn(senderTag: nb7)
-//        manager.addCommaBtn()
-//        manager.keypadBtn(senderTag: nb4)
-//
-//        manager.multiplyBtn()
-//        manager.keypadBtn(senderTag: nb3)
-//        manager.keypadBtn(senderTag: nb4)
-//        manager.addCommaBtn()
-//        manager.keypadBtn(senderTag: nb4)
-//        manager.equalBtn()
-//        
-//        let total = manager.getCalculInstance.returnTotal
-//        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
-//        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
-//        result = decimalFisrtStep * decimalSecondStep
-////        result = Double(nb1 * 10 + nb7) * decimal
-//        
-//        XCTAssertEqual(result, total)
-//        XCTAssertNil(manager.getCodeErreur)
-//    }
-    
+    func testBigNumberWithDecimalInFirstStepCalculMultiply() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
+        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+        result = decimalFisrtStep * decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    func testBigNumberWithDecimalInFirstStepCalculAddition() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
+        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+        result = decimalFisrtStep + decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    func testBigNumberWithDecimalInFirstStepCalculSoustract() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        
+        manager.minusBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
+        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+        result = decimalFisrtStep - decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    func testBigNumberWithDecimalInFirstStepCalculDivide() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10
+        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10
+        result = decimalFisrtStep / decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    func testBigNumberWithMultiDecimalInFirstStepCalcul() {
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb7)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(senderTag: nb5)
+        
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb4)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(senderTag: nb5)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10 + Double(nb5) / 100
+        let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10 + Double(nb5) / 100
+        result = decimalFisrtStep + decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
     
 }

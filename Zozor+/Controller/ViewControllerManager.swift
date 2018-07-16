@@ -72,19 +72,15 @@ class ViewControllerManager {
             }
             return
         }
+        if calcul.isDecimal {
+            calcul.trouveUnNom()
+        }
         // do start new calcul
         if calcul.isFirstStep {
             calcul.addOperator(signe: signe)
             displayAction(signe) //
             calcul.isFirstStep = false
         }
-//        else if calcul.isFirstStep && calcul.isDecimal {
-//            calcul.updateResult()
-//            calcul.addOperator(signe: signe)
-//            displayAction(signe)
-//            calcul.isFirstStep = false
-//            calcul.isDecimal = false
-//        }
         else {
             calcul.updateResult()
             calcul.addOperator(signe: signe)
@@ -95,21 +91,27 @@ class ViewControllerManager {
     
     func plusBtn() {
         // action when plus btn is presed
+        calcul.noNumber = false
         actionsForOperators(senderOperator: "+")
     }
     
     func minusBtn() {
         // action when minus btn is presed
+        calcul.noNumber = false
         actionsForOperators(senderOperator: "-")
     }
     
     func multiplyBtn() {
         // action when multyply btn is presed
+        
+        calcul.noNumber = false
+
         actionsForOperators(senderOperator: "*")
     }
     
     func divideBtn() {
         // action when divide btn is presed
+        calcul.noNumber = false
         actionsForOperators(senderOperator: "/")
     }
     

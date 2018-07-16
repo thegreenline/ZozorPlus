@@ -21,12 +21,12 @@ class CalculManager {
     private var _decimalNumber: Double = 0
     private var _total: Double = 0
     private var _decimalLong: Double = 1
-    
+    private var _noNumber = true
     // MARK: Getter
     
-//    var getPreviousNumber: Double {
-//        return _previousNumber
-//    }
+    var getPreviousNumber: Double {
+        return _previousNumber
+    }
     var getOperator: String {
         // return current operato
         return _operators
@@ -64,7 +64,13 @@ class CalculManager {
     
     
     // MARK: Setter
-    
+    var setTotla: Double {
+        get {
+            return _total
+        } set {
+            _total = newValue
+        }
+    }
     func addOperator(signe: String) {
         // set new operator
         _operators = signe
@@ -77,8 +83,22 @@ class CalculManager {
     func addCurrentNumber(_ number: Int) {
         // verify and add a new nember
         if isFirstStep && !_addTenOrSo {
+            if isDecimal {
+                // FIXME: pb de decimal au debut
+                if !_addTenOrSo {
+                    _decimalLong = 10
+                    _decimalNumber = _decimalNumber + Double(number) / _decimalLong
+                    _addTenOrSo = true
+                    return
+                }
+                else {
+                    _decimalLong = _decimalLong * 10
+                    _decimalNumber = _decimalNumber + Double(number) / _decimalLong
+                }
+            } else {
             _previousNumber = _previousNumber * 10 + Double(number)
-            return // le pb vient de la 
+            return // le pb vient de la
+            }
         }
         
         if isDecimal {
@@ -104,6 +124,14 @@ class CalculManager {
     }
     
     // MARK: getter and setter
+
+    var noNumber: Bool {
+        get {
+            return _noNumber
+        } set {
+            _noNumber = newValue
+        }
+    }
     
     var isTenOrSo: Bool {
         get {
@@ -150,8 +178,20 @@ class CalculManager {
     
     // MARK: Methode
     
+    func trouveUnNom() {
+
+        _isDecimal = false
+        _total = _previousNumber + _decimalNumber
+        currentNumber = _previousNumber + _decimalNumber
+        _previousNumber = 0
+        _decimalNumber = 0
+        _decimalLong = 1
+        _firstStep = false
+    }
+    
     func clear() {
         // reset
+        _noNumber = true
         _operators = ""
         _previousNumber = 0
         _currentNumber = nil
@@ -166,6 +206,7 @@ class CalculManager {
     private func calculateTotal() {
         // calcul result
         guard let currentNumber = _currentNumber else { return }
+        
         let signe = _operators
         let realDecimal = currentNumber + _decimalNumber
         switch signe {
