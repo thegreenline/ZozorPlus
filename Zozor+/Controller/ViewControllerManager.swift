@@ -29,7 +29,7 @@ class ViewControllerManager {
     }
     private var isCorrect: Bool {
         var isCorrect: Bool
-        if calcul.checkFirstStep { _codeErreur = 1; isCorrect = false }
+        if calcul.checkFirstStep { _codeErreur = 1; isCorrect = false}
         if _displayNumber == "", calcul.isFirstStep { _codeErreur = 2; isCorrect = false }
         else if calcul.checkIfDiviseWithZero { _codeErreur = 3; isCorrect = false }
         else { isCorrect = true }

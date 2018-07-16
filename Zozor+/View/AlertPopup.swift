@@ -15,14 +15,17 @@ struct AlertVC {
         alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
         vc.present(alertVC, animated: true, completion: nil)
     }
-    
+    static func alertStartNewCalc(on vc: UIViewController) {
+//        codeErreur == 1
+        showAlert(on: vc, with: "Zéro !", message: "Démarrez un nouveau calcul !")
+    }
     static func alertWrongExpression(on vc: UIViewController) {
+//        codeErreur == 2
         showAlert(on: vc, with: "Zero !", message: "Entrez une expression correcte !")
     }
     static func alertCanDivideWithZero(on vc: UIViewController) {
+//        codeErreur == 3
         showAlert(on: vc, with: "Zero !", message: "Impossible de diviser par 0 !")
     }
-    static func alertStartNewCalc(on vc: UIViewController) {
-        showAlert(on: vc, with: "Zéro !", message: "Démarrez un nouveau calcul !")
-    }
+
 }

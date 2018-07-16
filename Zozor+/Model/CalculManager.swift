@@ -24,9 +24,9 @@ class CalculManager {
     
     // MARK: Getter
     
-    var getPreviousNumber: Double {
-        return _previousNumber
-    }
+//    var getPreviousNumber: Double {
+//        return _previousNumber
+//    }
     var getOperator: String {
         // return current operato
         return _operators
@@ -40,11 +40,28 @@ class CalculManager {
         // only calcul total
         calculateTotal()
     }
+    var checkIfDiviseWithZero: Bool {
+        // check if try to divise with 0
+        
+        var isZero = false
+        if _operators == "/" && _currentNumber == 0 && _decimalLong == 1 {
+            isZero = true
+        }
+        return isZero
+    }
     
     var checkFirstStep: Bool {
-        // return check if is the first step of calcul
-        return didStartNewCalc()
+        // check if is the first step of calcul
+        
+        var returnValue: Bool
+        if _operators == "" && isFirstStep && _currentNumber == nil && _noNumber {
+            returnValue = true
+        } else {
+            returnValue = false
+        }
+        return returnValue
     }
+    
     
     // MARK: Setter
     
@@ -74,7 +91,6 @@ class CalculManager {
                 _decimalLong = _decimalLong * 10
                 _decimalNumber = _decimalNumber + Double(number) / _decimalLong
             }
-            // ajouter une variable decimal number
             return
         }
         
@@ -145,28 +161,6 @@ class CalculManager {
         _calculEnded = false
         _isDecimal = false
         restDecimalLong()
-    }
-    
-     var checkIfDiviseWithZero: Bool {
-        // check if try to divise with 0
-        
-        var isZero = false
-        if _operators == "/" && _currentNumber == 0 && _decimalLong == 1 {
-            isZero = true
-        }
-        return isZero
-    }
-    
-    private func didStartNewCalc() -> Bool {
-        // check if is the first step of calcul
-        
-        var returnValue: Bool
-        if _operators == "" && isFirstStep && _currentNumber == nil && _previousNumber == 0 {
-            returnValue = true
-        } else {
-            returnValue = false
-        }
-        return returnValue
     }
     
     private func calculateTotal() {
