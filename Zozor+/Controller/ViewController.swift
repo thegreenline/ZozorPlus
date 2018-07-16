@@ -17,7 +17,6 @@ class ViewController: UIViewController {
     // MARK: - Outlets
     
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]! // FIXEME: a supprimer
     
     private let calcul = CalculManager() // instance of class CalculModel
     private let manager = ViewControllerManager() // instance of VCManager

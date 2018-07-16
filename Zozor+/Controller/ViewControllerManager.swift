@@ -122,8 +122,7 @@ class ViewControllerManager {
     
     func equalBtn() {
         // action when equal btn is presed
-        
-        guard isCorrect, !calcul.isEnded else { return }
+        guard isCorrect, !calcul.isEnded else { return  }
         calcul.isEnded = true
         calcul.isDecimal = false
         calcul.isTenOrSo = false
@@ -131,7 +130,7 @@ class ViewControllerManager {
         _displayNumber.removeAll()
         calcul.addOperator(signe: "")
         calcul.restDecimalLong()
-    }
+        }
     
     func acBtn() {
         // action when reset btn is presed
