@@ -19,7 +19,8 @@ class ManagerTests: XCTestCase {
     let nb5 = 3
     let nb6 = 2
     let nb7 = 0
-    
+    let nb8 = 5
+
     override func setUp() {
         super.setUp()
         manager = ViewControllerManager()
@@ -527,6 +528,67 @@ class ManagerTests: XCTestCase {
         let decimalFisrtStep: Double = Double(nb1 * 10 + nb7) + Double(nb4) / 10 + Double(nb5) / 100
         let decimalSecondStep: Double = Double(nb3 * 10 + nb4) + Double(nb4) / 10 + Double(nb5) / 100
         result = decimalFisrtStep + decimalSecondStep
+        
+        XCTAssertEqual(result, total)
+        XCTAssertNil(manager.getCodeErreur)
+    }
+    func testBigNumberWithMultiDecimalInFirstStepCalculAndSequenceCalc() {
+            let nb0 = 0
+            let nb1 = 1
+            let nb2 = 2
+            let nb3 = 3
+            let nb4 = 4
+            let nb5 = 5
+            let nb6 = 6
+            let nb7 = 7
+            let nb8 = 8
+            let nb9 = 9
+
+        //    25.56 + 12.47 - 22.18
+        //    38.03 - 22.18
+        //    15.85
+        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(senderTag: nb5)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(senderTag: nb6)
+        
+        manager.plusBtn()
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(senderTag: nb7)
+        
+        manager.minusBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(senderTag: nb2)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(senderTag: nb8)
+        
+        manager.multiplyBtn()
+        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(senderTag: nb9)
+        manager.addCommaBtn()
+        manager.keypadBtn(senderTag: nb0)
+        manager.keypadBtn(senderTag: nb9)
+
+        manager.divideBtn()
+        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(senderTag: nb4)
+        manager.equalBtn()
+        
+        let total = manager.getCalculInstance.returnTotal
+        let calcFisrtStep: Double = Double(nb2 * 10 + nb5) + Double(nb5) / 10 + Double(nb6) / 100
+        let calcSecondStep: Double = Double(nb1 * 10 + nb2) + Double(nb4) / 10 + Double(nb7) / 100
+        let calcThirdStep: Double = Double(nb2 * 10 + nb2) + Double(nb1) / 10 + Double(nb8) / 100
+        
+        let calcFourStep: Double = Double(nb3 * 10 + nb9) + Double(nb0) / 10 + Double(nb9) / 100
+        let calcFiftStep: Double = Double(nb2 * 10 + nb4)
+        result = calcFisrtStep + calcSecondStep - calcThirdStep
+        result = result * calcFourStep
+        result = result / calcFiftStep
         
         XCTAssertEqual(result, total)
         XCTAssertNil(manager.getCodeErreur)

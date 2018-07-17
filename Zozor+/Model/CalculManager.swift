@@ -181,12 +181,19 @@ class CalculManager {
     func trouveUnNom() {
 
         _isDecimal = false
+        if let currentNn = _currentNumber {
+            _currentNumber! = currentNn + _decimalNumber
+            _decimalNumber = 0
+            _total = _currentNumber! + -_previousNumber
+        }
+        else { // rajouter ici aussi
         _total = _previousNumber + _decimalNumber
         currentNumber = _previousNumber + _decimalNumber
         _previousNumber = 0
         _decimalNumber = 0
         _decimalLong = 1
         _firstStep = false
+        }// rajouté ici
     }
     
     func clear() {

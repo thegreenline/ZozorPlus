@@ -73,6 +73,7 @@ class ViewControllerManager {
             return
         }
         if calcul.isDecimal {
+//             FIXME: ne focntionne pas en enchainement avec autre chose que des plus.
             calcul.trouveUnNom()
         }
         // do start new calcul
