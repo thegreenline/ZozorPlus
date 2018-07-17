@@ -20,7 +20,7 @@ class CountOnMeTests: XCTestCase {
     func testSigne() {
         let plus = "+"
         
-        calcul.addOperator(signe: "+")
+        calcul.addOperator(withThis: "+")
         
         XCTAssertEqual(plus, calcul.getOperator)
     }
@@ -28,7 +28,7 @@ class CountOnMeTests: XCTestCase {
     func testAddNumber() {
         let nb1 = 2
 
-        calcul.addCurrentNumber(nb1)
+        calcul.addCurrentNumber(with: nb1)
 
         XCTAssertEqual(Double(nb1), calcul.getPreviousNumber)
     }
@@ -38,7 +38,7 @@ class CountOnMeTests: XCTestCase {
     }
     
     func testAddOperator() {
-        calcul.addOperator(signe: "+")
+        calcul.addOperator(withThis: "+")
         
         XCTAssertEqual(calcul.getOperator, "+")
     }
@@ -51,16 +51,16 @@ class CountOnMeTests: XCTestCase {
     }
     
     func testCanDivideWithZero () {
-        calcul.addCurrentNumber(3)
-        calcul.addOperator(signe: "/")
-        calcul.addCurrentNumber(0)
+        calcul.addCurrentNumber(with: 3)
+        calcul.addOperator(withThis: "/")
+        calcul.addCurrentNumber(with: 0)
         calcul.updateResult()
 
         XCTAssertFalse(calcul.checkIfDiviseWithZero)
     }
     
     func testStartNewCalc() {
-        calcul.addOperator(signe: "")
+        calcul.addOperator(withThis: "")
         calcul.isFirstStep = true
         calcul.currentNumber = nil
         

@@ -28,9 +28,9 @@ class ManagerTests: XCTestCase {
     }
     
     func testAddition() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -40,9 +40,9 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testMinus() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -52,9 +52,9 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testMultiply() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -64,9 +64,9 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testDivide() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -76,12 +76,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testCalculSequence() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb4)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
 
         manager.equalBtn()
         
@@ -92,42 +92,42 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testAllOperatorsSequenceAndChainCalc() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb4)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb5)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb6)
+        manager.keypadBtn(with: nb6)
         manager.equalBtn()
         
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb2)
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb2)
+        manager.keypadBtn(with: nb1)
         manager.equalBtn()
         
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb5)
         manager.equalBtn()
         
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -143,25 +143,25 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testAllOperatorsSequenceAndChainCalcWhithBigNumber() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb4)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
+        manager.keypadBtn(with: nb2)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb3)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb5)
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb5)
+        manager.keypadBtn(with: nb5)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb6)
-        manager.keypadBtn(senderTag: nb6)
+        manager.keypadBtn(with: nb6)
+        manager.keypadBtn(with: nb6)
         manager.equalBtn()
         
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -172,21 +172,21 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testAllOperatorsSequenceAndStartNewCalc() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb4)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb5)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb6)
+        manager.keypadBtn(with: nb6)
         manager.equalBtn()
         
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -196,11 +196,11 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalSImpleCalculPlus() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -211,11 +211,11 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalSImpleCalculMinus() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -226,11 +226,11 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalSImpleCalculDivide() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -241,15 +241,15 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalComplexCalculDivide() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -260,11 +260,11 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalSImpleCalculMultiply() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -275,16 +275,16 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testOneDecimalMediumCalculOnlyPlus() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb3)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb3)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb4)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -295,12 +295,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testTwoDecimalSImpleCalcul() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -311,12 +311,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithNotZeroDecimal() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb3)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -327,12 +327,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithNotZeroDecimalMinus() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -343,12 +343,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithNotZeroDecimalMultiply() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -359,12 +359,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithNotZeroDecimalDivide() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -375,12 +375,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testAcFunction() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb1)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb2)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb3)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb3)
         manager.equalBtn()
 
         manager.acBtn()
@@ -400,22 +400,22 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testCanDivideWithZero() {
-        manager.keypadBtn(senderTag: nb1)
+        manager.keypadBtn(with: nb1)
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb7)
-        manager.plusBtn()
+        manager.keypadBtn(with: nb7)
+        manager.additionBtn()
         
         XCTAssertEqual(manager.getCodeErreur, 3)
         XCTAssert(manager.getCodeErreur == 3)
     }
     func testBigNumberWithNotZeroDecimalAndDixaineMultiply() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -426,16 +426,16 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithDecimalInFirstStepCalculMultiply() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
 
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -447,16 +447,16 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithDecimalInFirstStepCalculAddition() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -468,16 +468,16 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithDecimalInFirstStepCalculSoustract() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -489,16 +489,16 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithDecimalInFirstStepCalculDivide() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb4)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -510,18 +510,18 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     func testBigNumberWithMultiDecimalInFirstStepCalcul() {
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb7)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb4)
+        manager.keypadBtn(with: nb5)
         
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb4)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb4)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb4)
+        manager.keypadBtn(with: nb5)
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -547,36 +547,37 @@ class ManagerTests: XCTestCase {
         //    25.56 + 12.47 - 22.18
         //    38.03 - 22.18
         //    15.85
-        manager.keypadBtn(senderTag: nb2)
-        manager.keypadBtn(senderTag: nb5)
+        manager.keypadBtn(with: nb2)
+        manager.keypadBtn(with: nb5)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb5)
-        manager.keypadBtn(senderTag: nb6)
+        manager.keypadBtn(with: nb5)
+        manager.keypadBtn(with: nb6)
         
-        manager.plusBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb2)
+        manager.additionBtn()
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb2)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb4)
-        manager.keypadBtn(senderTag: nb7)
+        manager.keypadBtn(with: nb4)
+        manager.keypadBtn(with: nb7)
         
         manager.minusBtn()
-        manager.keypadBtn(senderTag: nb2)
-        manager.keypadBtn(senderTag: nb2)
+        manager.keypadBtn(with: nb2)
+        manager.keypadBtn(with: nb2)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb1)
-        manager.keypadBtn(senderTag: nb8)
+        manager.keypadBtn(with: nb1)
+        manager.keypadBtn(with: nb8)
         
         manager.multiplyBtn()
-        manager.keypadBtn(senderTag: nb3)
-        manager.keypadBtn(senderTag: nb9)
+        manager.keypadBtn(with: nb3)
+        manager.keypadBtn(with: nb9)
         manager.addCommaBtn()
-        manager.keypadBtn(senderTag: nb0)
-        manager.keypadBtn(senderTag: nb9)
+        manager.keypadBtn(with: nb0)
+        manager.keypadBtn(with: nb9)
 
         manager.divideBtn()
-        manager.keypadBtn(senderTag: nb2)
-        manager.keypadBtn(senderTag: nb4)
+        manager.keypadBtn(with: nb2)
+        manager.keypadBtn(with: nb4)
+//        manager.getCalculInstance.isEnded = true
         manager.equalBtn()
         
         let total = manager.getCalculInstance.returnTotal
@@ -594,4 +595,12 @@ class ManagerTests: XCTestCase {
         XCTAssertNil(manager.getCodeErreur)
     }
     
+    func testWrongExpression() {
+        manager.multiplyBtn()
+        XCTAssertEqual(manager.getCodeErreur, 2)
+    }
+    func testCheckFirstStep() {
+        manager.equalBtn()
+        XCTAssertEqual(manager.getCodeErreur, 1)
+    }
 }

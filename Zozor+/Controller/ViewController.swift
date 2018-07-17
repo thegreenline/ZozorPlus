@@ -13,25 +13,25 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
     }
-    
+    // ------------------------------------------------------------
     // MARK: - Outlets
-    
+    // ------------------------------------------------------------
     @IBOutlet weak var textView: UITextView!
     
     private let calcul = CalculManager() // instance of class CalculModel
     private let manager = ViewControllerManager() // instance of VCManager
-    
+    // ------------------------------------------------------------
     // MARK: - Action
-    
+    // ------------------------------------------------------------
     @IBAction func tappedNumberButton(_ sender: UIButton) {
         // spot number in keyPad
-        manager.keypadBtn(senderTag: sender.tag)
+        manager.keypadBtn(with: sender.tag)
         updateDisplay()
     }
     
-    @IBAction func plus() {
-        // btn plus
-        manager.plusBtn()
+    @IBAction func addition() {
+        // btn addition
+        manager.additionBtn()
         updateDisplay()
     }
     
@@ -70,12 +70,12 @@ class ViewController: UIViewController {
         manager.acBtn()
         updateDisplay()
     }
-    
+    // ------------------------------------------------------------
+    // Private methodes
+    // ------------------------------------------------------------
     private func isCorrect() -> Bool {
         // check if all is ok
-        guard let codeErreur = manager.getCodeErreur else {
-            return true
-        }
+        guard let codeErreur = manager.getCodeErreur else { return true }
         var isCorrect: Bool
         switch codeErreur {
         case 1:
