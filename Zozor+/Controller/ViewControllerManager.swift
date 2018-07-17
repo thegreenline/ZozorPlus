@@ -62,6 +62,7 @@ class ViewControllerManager {
     }
     
     func actionsForOperators(senderOperator signe: String) {
+        calcul.noNumber = false
         guard isCorrect, !calcul.isEnded else {
             calcul.isDecimal = false
             if calcul.isEnded {
@@ -73,8 +74,7 @@ class ViewControllerManager {
             return
         }
         if calcul.isDecimal {
-//             FIXME: ne focntionne pas en enchainement avec autre chose que des plus.
-            calcul.trouveUnNom()
+            calcul.calculDecimal()
         }
         // do start new calcul
         if calcul.isFirstStep {
@@ -92,27 +92,21 @@ class ViewControllerManager {
     
     func plusBtn() {
         // action when plus btn is presed
-        calcul.noNumber = false
         actionsForOperators(senderOperator: "+")
     }
     
     func minusBtn() {
         // action when minus btn is presed
-        calcul.noNumber = false
         actionsForOperators(senderOperator: "-")
     }
     
     func multiplyBtn() {
         // action when multyply btn is presed
-        
-        calcul.noNumber = false
-
         actionsForOperators(senderOperator: "*")
     }
     
     func divideBtn() {
         // action when divide btn is presed
-        calcul.noNumber = false
         actionsForOperators(senderOperator: "/")
     }
     

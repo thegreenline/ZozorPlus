@@ -54,7 +54,7 @@ class CalculManager {
         // check if is the first step of calcul
         
         var returnValue: Bool
-        if _operators == "" && isFirstStep && _currentNumber == nil && _noNumber {
+        if _operators == "" && isFirstStep && _currentNumber == nil && noNumber {
             returnValue = true
         } else {
             returnValue = false
@@ -64,13 +64,7 @@ class CalculManager {
     
     
     // MARK: Setter
-    var setTotla: Double {
-        get {
-            return _total
-        } set {
-            _total = newValue
-        }
-    }
+
     func addOperator(signe: String) {
         // set new operator
         _operators = signe
@@ -85,19 +79,19 @@ class CalculManager {
         if isFirstStep && !_addTenOrSo {
             if isDecimal {
                 // FIXME: pb de decimal au debut
-                if !_addTenOrSo {
+                if !_addTenOrSo {//
                     _decimalLong = 10
                     _decimalNumber = _decimalNumber + Double(number) / _decimalLong
                     _addTenOrSo = true
                     return
-                }
+                }//
                 else {
                     _decimalLong = _decimalLong * 10
                     _decimalNumber = _decimalNumber + Double(number) / _decimalLong
-                }
+                }//
             } else {
             _previousNumber = _previousNumber * 10 + Double(number)
-            return // le pb vient de la
+            return
             }
         }
         
@@ -178,22 +172,21 @@ class CalculManager {
     
     // MARK: Methode
     
-    func trouveUnNom() {
-
+    func calculDecimal() {
+        // calcul decimals numbers
         _isDecimal = false
-        if let currentNn = _currentNumber {
+        if let currentNn = currentNumber {
             _currentNumber! = currentNn + _decimalNumber
             _decimalNumber = 0
-            _total = _currentNumber! + -_previousNumber
-        }
-        else { // rajouter ici aussi
+            _total = currentNn + -_previousNumber
+        } else {
         _total = _previousNumber + _decimalNumber
         currentNumber = _previousNumber + _decimalNumber
         _previousNumber = 0
         _decimalNumber = 0
         _decimalLong = 1
         _firstStep = false
-        }// rajouté ici
+        }
     }
     
     func clear() {
