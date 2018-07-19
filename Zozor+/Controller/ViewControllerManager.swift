@@ -41,14 +41,8 @@ class ViewControllerManager {
     // MARK: Input
     // ------------------------------------------------------------
     func keypadBtn(with senderTag: Int) {
-        _codeErreur = nil
-        if needToClear {
-            calcul.clear()
-        }
-        calcul.isEnded = false
-        _displayNumber = _displayNumber + String(senderTag)
-        calcul.addCurrentNumber(with: senderTag)
-        updateDisplay() //
+        // action when a btn number is touch in keypad
+        keypadAction(with: senderTag)
     }
     
     func additionBtn() {
@@ -89,6 +83,18 @@ class ViewControllerManager {
     // ------------------------------------------------------------
     // MARK: private computed properties and methode.
     // ------------------------------------------------------------
+    private func keypadAction(with senderTag: Int) {
+        // methode to add new number from keypad and update
+        _codeErreur = nil
+        if needToClear {
+            calcul.clear()
+        }
+        calcul.isEnded = false
+        _displayNumber = _displayNumber + String(senderTag)
+        calcul.addCurrentNumber(with: senderTag)
+        updateDisplay() //
+    }
+
     private func resetCalcul() {
         // methode to reset calcul
         _codeErreur = nil
