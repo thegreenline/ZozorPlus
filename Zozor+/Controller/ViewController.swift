@@ -10,106 +10,94 @@ import UIKit
 
 class ViewController: UIViewController {
     
+    override func viewDidLoad() {
+        super.viewDidLoad()
+    }
+    // ------------------------------------------------------------
     // MARK: - Outlets
-    
+    // ------------------------------------------------------------
     @IBOutlet weak var textView: UITextView!
-    @IBOutlet var numberButtons: [UIButton]!
     
-    let calcul = CalculManager() // instance of class CalculModel
-    
+    private let calcul = CalculManager() // instance of class CalculModel
+    private let manager = ViewControllerManager() // instance of VCManager
+    // ------------------------------------------------------------
     // MARK: - Action
-    
-    
+    // ------------------------------------------------------------
     @IBAction func tappedNumberButton(_ sender: UIButton) {
-        // spot number in clavier 
-        for (i, numberBtn) in numberButtons.enumerated() {
-            if sender == numberBtn {
-                calcul.addNewNumber(i) // add Int number
-                updateDisplay()
-            }
-        }
+        // spot number in keyPad
+        manager.keypadBtn(with: sender.tag)
+        updateDisplay()
     }
     
-    @IBAction func plus() {
-        guard isCorrect() else { return }
-        calcul.addOperator(signe: "+")
-        calcul.addStringNumbers(number: "")
+    @IBAction func addition() {
+        // btn addition
+        manager.additionBtn()
         updateDisplay()
     }
     
     @IBAction func minus() {
-        guard isCorrect() else { return }
-        calcul.addOperator(signe: "-")
-        calcul.addStringNumbers(number: "")
+        // btn minus
+        manager.minusBtn()
         updateDisplay()
     }
     
     @IBAction func Multiply() {
-        guard isCorrect() else { return }
-        calcul.addOperator(signe: "*")
-        calcul.addStringNumbers(number: "")
+        // btn multiply
+        manager.multiplyBtn()
         updateDisplay()
     }
     
     @IBAction func divide() {
-        guard isCorrect() else { return }
-        calcul.addOperator(signe: "/")
-        calcul.addStringNumbers(number: "")
+        // btn divide
+        manager.divideBtn()
+        updateDisplay()
+    }
+    
+    @IBAction func addComma() {
+        // btn comma
+         manager.addCommaBtn()
         updateDisplay()
     }
     
     @IBAction func equal() {
-        // calcul
-        displayTotal()
-    }
-    
-    @IBAction func AC() {
-        // reset btn
-        calcul.clear()
-        textView.text = ""
+        // btn equal
+        manager.equalBtn()
         updateDisplay()
     }
     
-    
+    @IBAction func AC() {
+        // btn reset
+        manager.acBtn()
+        updateDisplay()
+    }
+    // ------------------------------------------------------------
+    // Private methodes
+    // ------------------------------------------------------------
     private func isCorrect() -> Bool {
         // check if all is ok
-        if let stringNumber = calcul.getStringNumbers.last {
-            if stringNumber.isEmpty {
-                if calcul.getCount == 1 {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Démarrez un nouveau calcul !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                } else {
-                    let alertVC = UIAlertController(title: "Zéro!", message: "Entrez une expression correcte !", preferredStyle: .alert)
-                    alertVC.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
-                    self.present(alertVC, animated: true, completion: nil)
-                }
-                return false
-            }
+        guard let codeErreur = manager.getCodeErreur else { return true }
+        var isCorrect: Bool
+        switch codeErreur {
+        case 1:
+            AlertVC.alertStartNewCalc(on: self)
+            isCorrect = false
+        case 2:
+            AlertVC.alertWrongExpression(on: self)
+            isCorrect = false
+        case 3:
+            AlertVC.alertCanDivideWithZero(on: self)
+            isCorrect = false
+        default:
+            isCorrect = true
         }
-        return true
-    }
-    
-    private func displayTotal() {
-        // calcul total
-        guard isCorrect() else { return }
-        let total = calcul.getTotal
-        textView.text = textView.text + " = \(total)"
-        calcul.clear()
+        return isCorrect
     }
     
     private func updateDisplay() {
-        // update textView
-        var text = ""
-        for (i, stringNumber) in calcul.getEnum {
-            // Add operator
-            if i > 0 {
-                text += calcul.getOperator[i]
-            }
-            // Add number
-            text += stringNumber
+        // update textView with new content
+        if isCorrect() {
+        textView.text = manager.textView
         }
-        textView.text = text
     }
     
 }
